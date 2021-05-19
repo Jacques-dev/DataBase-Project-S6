@@ -29,9 +29,7 @@ CREATE TABLE Vehicule(
         kilometrage      Int NOT NULL ,
         typeBoiteVitesse Char (11) NOT NULL ,
         climatisation    Bool NOT NULL ,
-        typeCarburant    Varchar (15) NOT NULL ,
-        loue             Bool NOT NULL ,
-        reserve          Bool NOT NULL
+        typeCarburant    Varchar (15) NOT NULL
 	,CONSTRAINT Vehicule_PK PRIMARY KEY (matricule)
 )ENGINE=InnoDB;
 
@@ -223,7 +221,8 @@ CREATE TABLE loue(
 CREATE TABLE retourne(
         matricule     Varchar (7) NOT NULL ,
         idUtilisateur Int NOT NULL ,
-        date          Date NOT NULL
+        date          Date NOT NULL ,
+        etatOrigine   Bool NOT NULL
 	,CONSTRAINT retourne_PK PRIMARY KEY (matricule,idUtilisateur)
 
 	,CONSTRAINT retourne_Vehicule_FK FOREIGN KEY (matricule) REFERENCES Vehicule(matricule)
