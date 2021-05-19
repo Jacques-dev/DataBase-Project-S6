@@ -29,7 +29,9 @@ CREATE TABLE Vehicule(
         kilometrage      Int NOT NULL ,
         typeBoiteVitesse Char (11) NOT NULL ,
         climatisation    Bool NOT NULL ,
-        typeCarburant    Varchar (15) NOT NULL
+        typeCarburant    Varchar (15) NOT NULL ,
+        loue             Bool NOT NULL ,
+        reserve          Bool NOT NULL
 	,CONSTRAINT Vehicule_PK PRIMARY KEY (matricule)
 )ENGINE=InnoDB;
 
@@ -142,23 +144,6 @@ CREATE TABLE Chauffeur(
 
 
 #------------------------------------------------------------
-# Table: Location
-#------------------------------------------------------------
-
-CREATE TABLE Location(
-        idLocation    Int  Auto_increment  NOT NULL ,
-        duree         Time NOT NULL ,
-        assurance     Bool NOT NULL ,
-        idUtilisateur Int NOT NULL ,
-        matricule     Varchar (7) NOT NULL
-	,CONSTRAINT Location_PK PRIMARY KEY (idLocation)
-
-	,CONSTRAINT Location_Client_FK FOREIGN KEY (idUtilisateur) REFERENCES Client(idUtilisateur)
-	,CONSTRAINT Location_Vehicule0_FK FOREIGN KEY (matricule) REFERENCES Vehicule(matricule)
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
 # Table: Facture
 #------------------------------------------------------------
 
@@ -211,5 +196,53 @@ CREATE TABLE Devis(
 
 	,CONSTRAINT Devis_Agence_FK FOREIGN KEY (idAgence) REFERENCES Agence(idAgence)
 	,CONSTRAINT Devis_Client0_FK FOREIGN KEY (idUtilisateur) REFERENCES Client(idUtilisateur)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: loue
+#------------------------------------------------------------
+
+CREATE TABLE loue(
+        matricule              Varchar (7) NOT NULL ,
+        idUtilisateur          Int NOT NULL ,
+        assurance              Bool NOT NULL ,
+        duree                  Time NOT NULL ,
+        datePriseDeResevration Date NOT NULL
+	,CONSTRAINT loue_PK PRIMARY KEY (matricule,idUtilisateur)
+
+	,CONSTRAINT loue_Vehicule_FK FOREIGN KEY (matricule) REFERENCES Vehicule(matricule)
+	,CONSTRAINT loue_Client0_FK FOREIGN KEY (idUtilisateur) REFERENCES Client(idUtilisateur)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: retourne
+#------------------------------------------------------------
+
+CREATE TABLE retourne(
+        matricule     Varchar (7) NOT NULL ,
+        idUtilisateur Int NOT NULL ,
+        date          Date NOT NULL
+	,CONSTRAINT retourne_PK PRIMARY KEY (matricule,idUtilisateur)
+
+	,CONSTRAINT retourne_Vehicule_FK FOREIGN KEY (matricule) REFERENCES Vehicule(matricule)
+	,CONSTRAINT retourne_Client0_FK FOREIGN KEY (idUtilisateur) REFERENCES Client(idUtilisateur)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: reserve
+#------------------------------------------------------------
+
+CREATE TABLE reserve(
+        idUtilisateur          Int NOT NULL ,
+        matricule              Varchar (7) NOT NULL ,
+        dateReservation        Date NOT NULL ,
+        datePriseDeReservation Date NOT NULL
+	,CONSTRAINT reserve_PK PRIMARY KEY (idUtilisateur,matricule)
+
+	,CONSTRAINT reserve_Client_FK FOREIGN KEY (idUtilisateur) REFERENCES Client(idUtilisateur)
+	,CONSTRAINT reserve_Vehicule0_FK FOREIGN KEY (matricule) REFERENCES Vehicule(matricule)
 )ENGINE=InnoDB;
 
