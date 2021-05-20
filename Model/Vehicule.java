@@ -35,17 +35,18 @@ public class Vehicule {
     /**
      * 
      */
-    public void typeBoiteDeVitesse;
-
-    /**
-     * 
-     */
     public booleen climatise;
 
     /**
      * 
      */
     public varchar typeCarburant;
+
+    /**
+     * 
+     */
+    public void typeBoiteDeVitesse;
+
 
 
 

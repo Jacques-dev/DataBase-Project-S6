@@ -30,11 +30,6 @@ public class Agence extends Employe {
     /**
      * 
      */
-    public void adresse;
-
-    /**
-     * 
-     */
     public void coordonneesGPS;
 
     /**

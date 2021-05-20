@@ -35,11 +35,6 @@ public class Utilisateur {
     /**
      * 
      */
-    public void adresse;
-
-    /**
-     * 
-     */
     public void telephone;
 
 }
