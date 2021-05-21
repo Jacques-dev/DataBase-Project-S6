@@ -10,7 +10,7 @@ public class MainController {
 	private Button btn;
 	
 	public void exit(ActionEvent event) {
-		System.out.println("A plus");
+		System.out.println("Mrn est bon");
 		System.exit(0);
 	}
 }
