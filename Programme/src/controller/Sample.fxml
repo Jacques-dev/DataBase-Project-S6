@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+   <center>
+      <AnchorPane prefHeight="342.0" prefWidth="461.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="203.0" layoutY="79.0" text="Scene Builder test" />
+            <Button fx:id="btn" layoutX="225.0" layoutY="159.0" mnemonicParsing="false" onAction="#exit" text="Button" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
