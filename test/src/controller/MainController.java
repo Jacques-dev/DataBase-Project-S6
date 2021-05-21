@@ -11,7 +11,7 @@ public class MainController {
 	private Button btn;
 	
 	public void exit(ActionEvent event) {
-		System.out.println("salut");
+		System.out.println("au revoir");
 		System.exit(0);
 	}
 	
