@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+   <top>
+      <Label text="RENTCAR" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+   </top>
+   <bottom>
+      <Label text="Yanis Rouabah - Merouane Souadji - Jacques Tellier" BorderPane.alignment="CENTER" />
+   </bottom>
+   <center>
+      <TitledPane prefHeight="385.0" prefWidth="600.0" text="Véhicules disponibles" BorderPane.alignment="CENTER">
+         <content>
+            <TableView fx:id="vehiculeTable" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="matricule" prefWidth="75.0" text="matricule" />
+                <TableColumn fx:id="marque" prefWidth="75.0" text="marque" />
+                  <TableColumn fx:id="modele" prefWidth="75.0" text="modele" />
+                  <TableColumn fx:id="kilometrage" prefWidth="75.0" text="kilometrage" />
+                  <TableColumn fx:id="climatisation" prefWidth="79.0" text="climatisation" />
+                  <TableColumn fx:id="typeBoiteDeVitesse" prefWidth="71.0" text="BDV" />
+                  <TableColumn fx:id="type" prefWidth="75.0" text="carburant" />
+              </columns>
+            </TableView>
+         </content>
+      </TitledPane>
+   </center>
+</BorderPane>

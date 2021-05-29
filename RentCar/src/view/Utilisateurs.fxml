@@ -10,7 +10,7 @@
    <center>
       <HBox prefHeight="418.0" prefWidth="604.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="table" prefHeight="393.0" prefWidth="917.0">
+            <TableView fx:id="utilisateurTable" prefHeight="393.0" prefWidth="917.0">
               <columns>
                 <TableColumn fx:id="idUtilisateur" prefWidth="75.0" text="idUtilisateur" />
                 <TableColumn fx:id="nom" prefWidth="75.0" text="nom" />
