@@ -6,5 +6,7 @@ module test {
 	requires java.sql;
 	requires javafx.graphics;
 	
+	exports model;
+	
 	opens controller to javafx.graphics, javafx.fxml;
 }
