@@ -33,9 +33,9 @@
             <TableColumn fx:id="type" prefWidth="106.0" text="type" />
         </columns>
       </TableView>
-      <Button layoutX="896.0" layoutY="214.0" mnemonicParsing="false" text="Recherche" />
-      <TextField layoutX="857.0" layoutY="179.0" promptText="Recherche par marque" />
-      <Button layoutX="813.0" layoutY="275.0" mnemonicParsing="false" text="Afficher les véhicules en cours de location" />
+      <Button layoutX="896.0" layoutY="214.0" mnemonicParsing="false" onAction="#print_vehicules_par_marque" text="Recherche" />
+      <TextField fx:id="input_marque_recherche" layoutX="857.0" layoutY="179.0" promptText="Recherche par marque" />
+      <Button layoutX="813.0" layoutY="275.0" mnemonicParsing="false" onAction="#print_vehicule_loue" text="Afficher les véhicules en cours de location" />
       <Label layoutX="39.0" layoutY="386.0" prefHeight="27.0" prefWidth="135.0" text="Ajouter un véhicule">
          <font>
             <Font name="System Italic" size="16.0" />
@@ -71,7 +71,7 @@
       <Button layoutX="14.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_client" prefHeight="27.0" prefWidth="127.0" text="Gestion Client" />
       <Button layoutX="160.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_vehicule" prefHeight="27.0" prefWidth="127.0" text="Gestion Véhicule" />
       <Button layoutX="307.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_finance" prefHeight="27.0" prefWidth="127.0" text="Gestion Finance" />
-      <Button layoutX="312.0" layoutY="516.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="96.0" text="Supprimer" />
+      <Button layoutX="312.0" layoutY="516.0" mnemonicParsing="false" onAction="#deleteButtonClicked_v" prefHeight="35.0" prefWidth="96.0" text="Supprimer" />
       <Button layoutX="591.0" layoutY="429.0" mnemonicParsing="false" onAction="#print_vehicules" text="Afficher tous les véhicules" />
    </children>
 </Pane>

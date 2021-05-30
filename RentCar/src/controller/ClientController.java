@@ -44,6 +44,7 @@ public class ClientController extends MainController implements Initializable {
 	public ObservableList<ProgramFidelite> programs = FXCollections.observableArrayList();
 	
 	public void printPrograms(ActionEvent event) throws SQLException {
+		programFideliteTable.getItems().clear();
         String sql = "Select * From programmefidelite";
         PreparedStatement stat = conn.prepareStatement(sql);
         ResultSet rs = stat.executeQuery();
@@ -56,8 +57,10 @@ public class ClientController extends MainController implements Initializable {
         duree.setCellValueFactory(new PropertyValueFactory<ProgramFidelite, Integer>("duree"));
         description.setCellValueFactory(new PropertyValueFactory<ProgramFidelite, String>("description"));
         prix.setCellValueFactory(new PropertyValueFactory<ProgramFidelite, Float>("prix"));
-		
+        
+        //programFideliteTable.getItems().clear();
         programFideliteTable.setItems(programs);
+        
         print_clients(event);
 	}
 	
@@ -74,6 +77,7 @@ public class ClientController extends MainController implements Initializable {
 	public ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
 	
 	public void printVehicules(ActionEvent event) throws SQLException {
+		vehiculeTable.getItems().clear();
         String sql = "Select * From vehicule WHERE matricule not in (select matricule from loue)";
         PreparedStatement stat = conn.prepareStatement(sql);
         ResultSet rs = stat.executeQuery();
@@ -89,12 +93,15 @@ public class ClientController extends MainController implements Initializable {
         climatisation.setCellValueFactory(new PropertyValueFactory<Vehicule, Boolean>("climatisation"));
         typeBoiteDeVitesse.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("typeBoiteDeVitesse"));
         type.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("type"));
-		
+        
+        
         vehiculeTable.setItems(vehicules);
+        
         print_clients(event);
 	}
 	
 	public void printVehiculesLoue(ActionEvent event) throws SQLException {
+		vehiculeTable.getItems().clear();
         String sql = "Select * From vehicule WHERE matricule in (select matricule from loue)";
         PreparedStatement stat = conn.prepareStatement(sql);
         ResultSet rs = stat.executeQuery();
@@ -111,6 +118,7 @@ public class ClientController extends MainController implements Initializable {
         typeBoiteDeVitesse.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("typeBoiteDeVitesse"));
         type.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("type"));
 		
+        //vehiculeTable.getItems().clear();
         vehiculeTable.setItems(vehicules);
         print_clients(event);
 	}
@@ -126,6 +134,7 @@ public class ClientController extends MainController implements Initializable {
 	
 	@FXML
 	public void print_clients(ActionEvent event) throws SQLException {
+		clientTable.getItems().clear();
 		String sql = "Select * FROM utilisateur NATURAL JOIN client";
         PreparedStatement stat = conn.prepareStatement(sql);
         ResultSet rs = stat.executeQuery();
@@ -166,8 +175,7 @@ public class ClientController extends MainController implements Initializable {
 		
 		clientTable.setItems(clients);
 	}
-	
-	
+		
 	
 	@FXML private TextField input_matricule;
 	@FXML private TextField input_idUtilisateur;
@@ -281,36 +289,7 @@ public class ClientController extends MainController implements Initializable {
 			lbletat.setText("Souscription erreur");
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+			
 	
 	public void goToClientLocationArea(ActionEvent event) throws IOException, SQLException {
 		Parent root = FXMLLoader.load(getClass().getResource("/view/ClientLocationArea.fxml"));
@@ -318,6 +297,7 @@ public class ClientController extends MainController implements Initializable {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+		//print_clients(event);
 	}
 	
 	public void goToClientFideliteArea(ActionEvent event) throws IOException, SQLException {
@@ -326,6 +306,7 @@ public class ClientController extends MainController implements Initializable {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+		//printPrograms(event);
 	}
 	
 	public void goToClientRetourArea(ActionEvent event) throws IOException, SQLException {
@@ -334,5 +315,6 @@ public class ClientController extends MainController implements Initializable {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+		//printVehiculesLoue(event);
 	}
 }

@@ -26,7 +26,7 @@
             <TableColumn fx:id="idUtilisateur" prefWidth="75.0" text="id" />
         </columns>
       </TableView>
-      <Button layoutX="14.0" layoutY="577.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="211.0" text="Clients ayant une location en cours" />
+      <Button layoutX="14.0" layoutY="577.0" mnemonicParsing="false" onAction="#print_clients_loueur" prefHeight="38.0" prefWidth="211.0" text="Clients ayant une location en cours" />
 
       <Button layoutX="374.0" layoutY="618.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="86.0" text="Rechercher" />
       <TextField layoutX="343.0" layoutY="583.0" promptText="Matricule du véhicule" />
