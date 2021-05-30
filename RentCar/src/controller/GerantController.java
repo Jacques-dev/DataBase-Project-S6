@@ -146,6 +146,5 @@ public class GerantController extends MainController {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		
 	}
 }
