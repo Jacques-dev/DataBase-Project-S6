@@ -27,7 +27,7 @@ public class MainController extends Main implements Initializable {
 	}
 	
 	public void goToClientArea(ActionEvent event) throws IOException, SQLException {
-		Parent root = FXMLLoader.load(getClass().getResource("/view/ClientArea.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/view/ClientLocationArea.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);

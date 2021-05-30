@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="538.0" prefWidth="926.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientController">
+<Pane prefHeight="624.0" prefWidth="926.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientController">
    <children>
       <Label layoutX="406.0" layoutY="14.0" text="RENTCAR">
          <font>
             <Font size="27.0" />
          </font>
       </Label>
-      <TableView fx:id="vehiculeTable" layoutX="-1.0" layoutY="143.0" prefHeight="396.0" prefWidth="926.0">
+      <TableView fx:id="vehiculeTable" layoutX="14.0" layoutY="193.0" prefHeight="396.0" prefWidth="615.0">
         <columns>
           <TableColumn fx:id="matricule" prefWidth="75.0" text="matricule" />
           <TableColumn fx:id="marque" prefWidth="75.0" text="marque" />
@@ -23,13 +25,25 @@
             <TableColumn fx:id="climatisation" prefWidth="79.0" text="climatisation" />
             <TableColumn fx:id="typeBoiteDeVitesse" prefWidth="99.0" text="BDV" />
             <TableColumn fx:id="type" prefWidth="135.0" text="carburant" />
-            <TableColumn fx:id="type1" prefWidth="123.0" />
-            <TableColumn fx:id="type2" prefWidth="100.0" />
-            <TableColumn fx:id="type3" prefWidth="89.0" />
         </columns>
       </TableView>
-      <Button layoutX="90.0" layoutY="88.0" mnemonicParsing="false" onAction="#printVehicules" text="Afficher les véhicule disponible" />
-      <Button layoutX="614.0" layoutY="88.0" mnemonicParsing="false" onAction="#goToClientFideliteArea" text="Adhérer à un programme de fidélité" />
+      <Button layoutX="14.0" layoutY="94.0" mnemonicParsing="false" onAction="#printVehicules" text="Afficher les véhicule disponible" />
+      <Button layoutX="64.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToClientFideliteArea" text="Adhérer à un programme de fidélité" />
       <Button layoutX="-1.0" layoutY="2.0" mnemonicParsing="false" onAction="#goHome" text="Retour" />
+      <TextField fx:id="input_idUtilisateur" layoutX="428.0" layoutY="94.0" promptText="num client" />
+      <TableView fx:id="clientTable" layoutX="682.0" layoutY="193.0" prefHeight="396.0" prefWidth="226.0">
+         <columns>
+            <TableColumn fx:id="idUtilisateur" prefWidth="75.0" text="num client" />
+            <TableColumn fx:id="nom" prefWidth="75.0" text="nom" />
+            <TableColumn fx:id="prenom" prefWidth="75.0" text="prenom" />
+         </columns>
+      </TableView>
+      <TextField fx:id="input_matricule" layoutX="271.0" layoutY="94.0" promptText="matricule" />
+      <Button layoutX="850.0" layoutY="94.0" mnemonicParsing="false" onAction="#reserve" text="Réserver" />
+      <Button layoutX="795.0" layoutY="94.0" mnemonicParsing="false" onAction="#loue" text="Louer" />
+      <CheckBox fx:id="input_assurance" layoutX="592.0" layoutY="98.0" mnemonicParsing="false" text="Assurance" />
+      <TextField fx:id="input_duree" layoutX="686.0" layoutY="94.0" prefHeight="25.0" prefWidth="75.0" promptText="durée" />
+      <TextField fx:id="filterField" layoutX="682.0" layoutY="154.0" prefHeight="25.0" prefWidth="226.0" promptText="Rechercher client" />
+      <Label fx:id="lbletat" layoutX="781.0" layoutY="25.0" text="Label" />
    </children>
 </Pane>

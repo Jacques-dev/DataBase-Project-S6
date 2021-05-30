@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 29 mai 2021 à 09:31
+-- Généré le : Dim 30 mai 2021 à 14:46
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -298,7 +298,7 @@ DROP TABLE IF EXISTS `souscrire`;
 CREATE TABLE IF NOT EXISTS `souscrire` (
   `idUtilisateur` int(11) NOT NULL,
   `idProgrammeFidelite` int(11) NOT NULL,
-  `dateSoucription` date NOT NULL,
+  `dateSouscription` date NOT NULL,
   `tauxReduction` float DEFAULT NULL,
   PRIMARY KEY (`idUtilisateur`,`idProgrammeFidelite`),
   KEY `souscrire_ProgrammeFidelite0_FK` (`idProgrammeFidelite`)
@@ -372,87 +372,87 @@ INSERT INTO `vehicule` (`matricule`, `marque`, `modele`, `kilometrage`, `climati
 -- Contraintes pour la table `agence`
 --
 ALTER TABLE `agence`
-  ADD CONSTRAINT `Agence_Adresse_FK` FOREIGN KEY (`idAdresse`) REFERENCES `adresse` (`idAdresse`);
+  ADD CONSTRAINT `Agence_Adresse_FK` FOREIGN KEY (`idAdresse`) REFERENCES `adresse` (`idAdresse`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `chauffeur`
 --
 ALTER TABLE `chauffeur`
-  ADD CONSTRAINT `Chauffeur_Employe_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `employe` (`idUtilisateur`);
+  ADD CONSTRAINT `Chauffeur_Employe_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `employe` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `client`
 --
 ALTER TABLE `client`
-  ADD CONSTRAINT `Client_Utilisateur_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`);
+  ADD CONSTRAINT `Client_Utilisateur_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `devis`
 --
 ALTER TABLE `devis`
-  ADD CONSTRAINT `Devis_Agence_FK` FOREIGN KEY (`idAgence`) REFERENCES `agence` (`idAgence`),
-  ADD CONSTRAINT `Devis_Client0_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `client` (`idUtilisateur`),
-  ADD CONSTRAINT `Devis_Vehicule1_FK` FOREIGN KEY (`matricule`) REFERENCES `vehicule` (`matricule`);
+  ADD CONSTRAINT `Devis_Agence_FK` FOREIGN KEY (`idAgence`) REFERENCES `agence` (`idAgence`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Devis_Client0_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `client` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Devis_Vehicule1_FK` FOREIGN KEY (`matricule`) REFERENCES `vehicule` (`matricule`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `employe`
 --
 ALTER TABLE `employe`
-  ADD CONSTRAINT `Employe_Agence0_FK` FOREIGN KEY (`idAgence`) REFERENCES `agence` (`idAgence`),
-  ADD CONSTRAINT `Employe_Utilisateur_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`);
+  ADD CONSTRAINT `Employe_Agence0_FK` FOREIGN KEY (`idAgence`) REFERENCES `agence` (`idAgence`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Employe_Utilisateur_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `facture`
 --
 ALTER TABLE `facture`
-  ADD CONSTRAINT `Facture_Agence_FK` FOREIGN KEY (`idAgence`) REFERENCES `agence` (`idAgence`),
-  ADD CONSTRAINT `Facture_Client0_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `client` (`idUtilisateur`);
+  ADD CONSTRAINT `Facture_Agence_FK` FOREIGN KEY (`idAgence`) REFERENCES `agence` (`idAgence`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Facture_Client0_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `client` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `gerant`
 --
 ALTER TABLE `gerant`
-  ADD CONSTRAINT `Gerant_Employe_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `employe` (`idUtilisateur`);
+  ADD CONSTRAINT `Gerant_Employe_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `employe` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `loue`
 --
 ALTER TABLE `loue`
-  ADD CONSTRAINT `loue_Client0_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `client` (`idUtilisateur`),
-  ADD CONSTRAINT `loue_Vehicule_FK` FOREIGN KEY (`matricule`) REFERENCES `vehicule` (`matricule`);
+  ADD CONSTRAINT `loue_Client0_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `client` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `loue_Vehicule_FK` FOREIGN KEY (`matricule`) REFERENCES `vehicule` (`matricule`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `reserve`
 --
 ALTER TABLE `reserve`
-  ADD CONSTRAINT `reserve_Client_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `client` (`idUtilisateur`),
-  ADD CONSTRAINT `reserve_Vehicule0_FK` FOREIGN KEY (`matricule`) REFERENCES `vehicule` (`matricule`);
+  ADD CONSTRAINT `reserve_Client_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `client` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reserve_Vehicule0_FK` FOREIGN KEY (`matricule`) REFERENCES `vehicule` (`matricule`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `retourne`
 --
 ALTER TABLE `retourne`
-  ADD CONSTRAINT `retourne_Client0_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `client` (`idUtilisateur`),
-  ADD CONSTRAINT `retourne_Vehicule_FK` FOREIGN KEY (`matricule`) REFERENCES `vehicule` (`matricule`);
+  ADD CONSTRAINT `retourne_Client0_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `client` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `retourne_Vehicule_FK` FOREIGN KEY (`matricule`) REFERENCES `vehicule` (`matricule`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `souscrire`
 --
 ALTER TABLE `souscrire`
-  ADD CONSTRAINT `souscrire_Client_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `client` (`idUtilisateur`),
-  ADD CONSTRAINT `souscrire_ProgrammeFidelite0_FK` FOREIGN KEY (`idProgrammeFidelite`) REFERENCES `programmefidelite` (`idProgrammeFidelite`);
+  ADD CONSTRAINT `souscrire_Client_FK` FOREIGN KEY (`idUtilisateur`) REFERENCES `client` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `souscrire_ProgrammeFidelite0_FK` FOREIGN KEY (`idProgrammeFidelite`) REFERENCES `programmefidelite` (`idProgrammeFidelite`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  ADD CONSTRAINT `Utilisateur_Adresse_FK` FOREIGN KEY (`idAdresse`) REFERENCES `adresse` (`idAdresse`);
+  ADD CONSTRAINT `Utilisateur_Adresse_FK` FOREIGN KEY (`idAdresse`) REFERENCES `adresse` (`idAdresse`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `vehicule`
 --
 ALTER TABLE `vehicule`
-  ADD CONSTRAINT `Vehicule_CategorieVehicule_FK` FOREIGN KEY (`type`) REFERENCES `categorievehicule` (`type`);
+  ADD CONSTRAINT `Vehicule_CategorieVehicule_FK` FOREIGN KEY (`type`) REFERENCES `categorievehicule` (`type`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

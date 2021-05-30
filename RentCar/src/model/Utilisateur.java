@@ -19,6 +19,13 @@ public class Utilisateur {
 	}
 	
 
+	public Utilisateur(int idUtilisateur, String nom, String prenom) {
+		this.idUtilisateur = idUtilisateur;
+		this.nom = nom;
+		this.prenom = prenom;
+	}
+
+
 	public int getId() {
 		return idUtilisateur;
 	}
