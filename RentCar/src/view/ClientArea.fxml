@@ -1,49 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
-   <top>
-      <Label text="RENTCAR" BorderPane.alignment="CENTER">
+<Pane prefHeight="538.0" prefWidth="926.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientController">
+   <children>
+      <Label layoutX="406.0" layoutY="14.0" text="RENTCAR">
          <font>
             <Font size="27.0" />
          </font>
       </Label>
-   </top>
-   <center>
-      <TitledPane prefHeight="385.0" prefWidth="600.0" text="Véhicules disponibles" BorderPane.alignment="CENTER">
-         <content>
-            <TableView fx:id="vehiculeTable" prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TableColumn fx:id="matricule" prefWidth="75.0" text="matricule" />
-                <TableColumn fx:id="marque" prefWidth="75.0" text="marque" />
-                  <TableColumn fx:id="modele" prefWidth="75.0" text="modele" />
-                  <TableColumn fx:id="kilometrage" prefWidth="75.0" text="kilometrage" />
-                  <TableColumn fx:id="climatisation" prefWidth="79.0" text="climatisation" />
-                  <TableColumn fx:id="typeBoiteDeVitesse" prefWidth="99.0" text="BDV" />
-                  <TableColumn fx:id="type" prefWidth="93.0" text="carburant" />
-              </columns>
-            </TableView>
-         </content>
-      </TitledPane>
-   </center>
-   <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btn_back" mnemonicParsing="false" onAction="#go_back" prefHeight="43.0" prefWidth="84.0" text="retour">
-               <HBox.margin>
-                  <Insets top="60.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
-   </bottom>
-</BorderPane>
+      <Button layoutX="90.0" layoutY="88.0" mnemonicParsing="false" onAction="#goToClientLocationArea" text="Faire une location / réservation" />
+      <Button layoutX="614.0" layoutY="88.0" mnemonicParsing="false" onAction="#goToClientFideliteArea" text="Adhérer à un programme de fidélité" />
+      <Button layoutX="-1.0" layoutY="2.0" mnemonicParsing="false" onAction="#goHome" text="Retour" />
+   </children>
+</Pane>

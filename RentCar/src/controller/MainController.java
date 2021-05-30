@@ -24,15 +24,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.ProgramFidelite;
 import model.Utilisateur;
 import model.Vehicule;
 
 public class MainController extends Main implements Initializable {
 	
-	private Stage stage;
-	private Scene scene;
-	
-	@FXML private Button clientButton;
+	public Stage stage;
+	public Scene scene;
 	
 	public void goToClientArea(ActionEvent event) throws IOException, SQLException {
 		Parent root = FXMLLoader.load(getClass().getResource("/view/ClientArea.fxml"));
@@ -54,7 +53,6 @@ public class MainController extends Main implements Initializable {
 	
 	public ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
 	
-	@FXML
 	public void printVehicules(ActionEvent event) throws SQLException {
         String sql = "Select * From vehicule";
         PreparedStatement stat = conn.prepareStatement(sql);
@@ -75,9 +73,7 @@ public class MainController extends Main implements Initializable {
         vehiculeTable.setItems(vehicules);
 	}
 	
-	
 	@FXML private Button staffMemberButton;
-	
 	
 	public void goTo_connexion_to_StaffMemberArea(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/view/Connexion_to_StaffMemberArea.fxml"));
@@ -201,7 +197,7 @@ public class MainController extends Main implements Initializable {
 	
 	@FXML private Button btn_back;
 	
-	public void go_back(ActionEvent event) throws IOException {
+	public void goHome(ActionEvent event) throws IOException {
 		
 		Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
