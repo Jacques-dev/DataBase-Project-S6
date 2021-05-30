@@ -219,7 +219,7 @@ public class ClientController extends MainController implements Initializable {
 			
 			pst.setString(1, input_matricule.getText().toString());
 			pst.setInt(2, Integer.valueOf(input_idUtilisateur.getText().toString()));
-			pst.setBoolean(3, Boolean.valueOf(input_assurance.getText().toString()));
+			pst.setBoolean(3, input_assurance.isSelected());
 			pst.setInt(4, Integer.valueOf(input_duree.getText().toString()));
 			pst.setString(5, java.time.LocalDate.now().toString());
 
