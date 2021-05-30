@@ -17,8 +17,10 @@ public class MainController extends Main implements Initializable {
 	
 	public Stage stage;
 	public Scene scene;
+	public static String actualscene;
 	
 	public void goHome(ActionEvent event) throws IOException {
+		actualscene = "Home";
 		Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
@@ -27,6 +29,7 @@ public class MainController extends Main implements Initializable {
 	}
 	
 	public void goToClientArea(ActionEvent event) throws IOException, SQLException {
+		actualscene = "ClientLocationArea";
 		Parent root = FXMLLoader.load(getClass().getResource("/view/ClientLocationArea.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
@@ -35,6 +38,7 @@ public class MainController extends Main implements Initializable {
 	}
 	
 	public void goToConnexionArea(ActionEvent event) throws IOException {
+		actualscene = "ConnexionArea";
 		Parent root = FXMLLoader.load(getClass().getResource("/view/ConnexionArea.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);

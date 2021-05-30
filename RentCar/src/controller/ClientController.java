@@ -34,6 +34,30 @@ import model.Vehicule;
 
 public class ClientController extends MainController implements Initializable {
 
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		input_etat.getItems().addAll(listOfEtat);
+		input_etat.setOnAction(this::updateEtatLabel);
+		try {
+			switch (actualscene) {
+			case "ClientLocationArea":
+				printVehicules();
+				printClients();
+				break;
+			case "ClientRetourArea":
+				printVehiculesLoue();
+				printClients();
+				break;
+			case "ClientFideliteArea":
+				printPrograms();
+				printClients();
+				break;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@FXML private TableView<ProgramFidelite> programFideliteTable;
 	@FXML private TableColumn<ProgramFidelite, Integer> idProgrammeFidelite;
 	@FXML private TableColumn<ProgramFidelite, Integer> duree;
@@ -43,9 +67,8 @@ public class ClientController extends MainController implements Initializable {
 	
 	public ObservableList<ProgramFidelite> programs = FXCollections.observableArrayList();
 	
-	public void printPrograms(ActionEvent event) throws SQLException {
-		programFideliteTable.getItems().clear();
-        String sql = "Select * From programmefidelite";
+	public void printPrograms() throws SQLException {
+		String sql = "Select * From programmefidelite";
         PreparedStatement stat = conn.prepareStatement(sql);
         ResultSet rs = stat.executeQuery();
         
@@ -58,10 +81,7 @@ public class ClientController extends MainController implements Initializable {
         description.setCellValueFactory(new PropertyValueFactory<ProgramFidelite, String>("description"));
         prix.setCellValueFactory(new PropertyValueFactory<ProgramFidelite, Float>("prix"));
         
-        //programFideliteTable.getItems().clear();
         programFideliteTable.setItems(programs);
-        
-        print_clients(event);
 	}
 	
 	@FXML private TableView<Vehicule> vehiculeTable;
@@ -76,32 +96,7 @@ public class ClientController extends MainController implements Initializable {
 	
 	public ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
 	
-	public void printVehicules(ActionEvent event) throws SQLException {
-		vehiculeTable.getItems().clear();
-        String sql = "Select * From vehicule WHERE matricule not in (select matricule from loue)";
-        PreparedStatement stat = conn.prepareStatement(sql);
-        ResultSet rs = stat.executeQuery();
-        
-        while(rs.next()) {
-        	vehicules.add(new Vehicule(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getString(6), rs.getString(7)));
-        }
-        
-        matricule.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("matricule"));
-        marque.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("marque"));
-        modele.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("modele"));
-        kilometrage.setCellValueFactory(new PropertyValueFactory<Vehicule, Integer>("kilometrage"));
-        climatisation.setCellValueFactory(new PropertyValueFactory<Vehicule, Boolean>("climatisation"));
-        typeBoiteDeVitesse.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("typeBoiteDeVitesse"));
-        type.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("type"));
-        
-        
-        vehiculeTable.setItems(vehicules);
-        
-        print_clients(event);
-	}
-	
 	public void printVehicules() throws SQLException {
-		vehiculeTable.getItems().clear();
         String sql = "Select * From vehicule WHERE matricule not in (select matricule from loue)";
         PreparedStatement stat = conn.prepareStatement(sql);
         ResultSet rs = stat.executeQuery();
@@ -120,12 +115,9 @@ public class ClientController extends MainController implements Initializable {
         
         
         vehiculeTable.setItems(vehicules);
-        
-//        print_clients();
 	}
 	
-	public void printVehiculesLoue(ActionEvent event) throws SQLException {
-		vehiculeTable.getItems().clear();
+	public void printVehiculesLoue() throws SQLException {
         String sql = "Select * From vehicule WHERE matricule in (select matricule from loue)";
         PreparedStatement stat = conn.prepareStatement(sql);
         ResultSet rs = stat.executeQuery();
@@ -142,9 +134,7 @@ public class ClientController extends MainController implements Initializable {
         typeBoiteDeVitesse.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("typeBoiteDeVitesse"));
         type.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("type"));
 		
-        //vehiculeTable.getItems().clear();
         vehiculeTable.setItems(vehicules);
-        print_clients(event);
 	}
 	
 	@FXML private TextField filterField;
@@ -157,8 +147,7 @@ public class ClientController extends MainController implements Initializable {
 	public ObservableList<Utilisateur> clients = FXCollections.observableArrayList();
 	
 	@FXML
-	public void print_clients(ActionEvent event) throws SQLException {
-		clientTable.getItems().clear();
+	public void printClients() throws SQLException {
 		String sql = "Select * FROM utilisateur NATURAL JOIN client";
         PreparedStatement stat = conn.prepareStatement(sql);
         ResultSet rs = stat.executeQuery();
@@ -200,7 +189,6 @@ public class ClientController extends MainController implements Initializable {
 		clientTable.setItems(clients);
 	}
 		
-	
 	@FXML private TextField input_matricule;
 	@FXML private TextField input_idUtilisateur;
 	@FXML private CheckBox input_assurance;
@@ -215,24 +203,12 @@ public class ClientController extends MainController implements Initializable {
 	@FXML private Label input_etat_label;
 	private Integer[] listOfEtat = {1,2,3,4,5};
 	
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		input_etat.getItems().addAll(listOfEtat);
-		input_etat.setOnAction(this::updateEtatLabel);
-		try {
-			printVehicules();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public void updateEtatLabel(ActionEvent event) {
 		String etat = input_etat.getValue().toString();
 		input_etat_label.setText(etat);
 	}
 	
 	@FXML private Label lbletat;
-	
 	
 	@FXML public void loue(ActionEvent event) {
 		vehiculeTable.getItems().clear();
@@ -261,6 +237,7 @@ public class ClientController extends MainController implements Initializable {
 	}
 	
 	@FXML public void reserve(ActionEvent event) {
+		vehiculeTable.getItems().clear();
 		String sql = "INSERT INTO reserve (matricule, idUtilisateur, dateReservation, datePriseDeReservation) VALUES (?, ?, ?, ?)";
 
 		try {
@@ -278,9 +255,16 @@ public class ClientController extends MainController implements Initializable {
 		} catch(Exception e) {
 			lbletat.setText("Réservation erreur");
 		}
+		
+		try {
+			printVehicules();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML public void retourne(ActionEvent event) {
+		vehiculeTable.getItems().clear();
 		String sql = "INSERT INTO retourne (matricule, idUtilisateur, date, etatOrigine) VALUES (?, ?, ?, ?)";
 		String sql2 = "DELETE FROM loue WHERE matricule = ? AND idUtilisateur = ?";
 
@@ -304,6 +288,11 @@ public class ClientController extends MainController implements Initializable {
 		} catch(Exception e) {
 			lbletat.setText("Retour erreur");
 		}
+		try {
+			printVehiculesLoue();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML public void souscrit(ActionEvent event) {
@@ -326,30 +315,33 @@ public class ClientController extends MainController implements Initializable {
 	}
 			
 	
+	
+	
+	
 	public void goToClientLocationArea(ActionEvent event) throws IOException, SQLException {
+		actualscene = "ClientLocationArea";
 		Parent root = FXMLLoader.load(getClass().getResource("/view/ClientLocationArea.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		//print_clients(event);
 	}
 	
 	public void goToClientFideliteArea(ActionEvent event) throws IOException, SQLException {
+		actualscene = "ClientFideliteArea";
 		Parent root = FXMLLoader.load(getClass().getResource("/view/ClientFideliteArea.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		//printPrograms(event);
 	}
 	
 	public void goToClientRetourArea(ActionEvent event) throws IOException, SQLException {
+		actualscene = "ClientRetourArea";
 		Parent root = FXMLLoader.load(getClass().getResource("/view/ClientRetourArea.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		//printVehiculesLoue(event);
 	}
 }
