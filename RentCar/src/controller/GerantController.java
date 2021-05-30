@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Utilisateur;
+import model.Vehicule;
 
 public class GerantController extends MainController {
 
@@ -37,25 +39,42 @@ public class GerantController extends MainController {
 	
 	
 	public void addButtonClicked(ActionEvent event) throws SQLException {
-		/* String sql = "Select max(idUtilisateur) FROM utilisateur NATURAL JOIN client";
-	     PreparedStatement stat = conn.prepareStatement(sql);
-	     ResultSet rs = stat.executeQuery();
-	     System.out.println(rs.getInt(1));*/
-		 /*String sql = "INSERT INTO utilisateur (nom,prenom,email,telephone,idAdresse) Values (?,?,?,?,?)";
+			
+		 String sql = "INSERT INTO utilisateur (nom,prenom,email,telephone,idAdresse) Values (?,?,?,?,?)";
+		 
 		 PreparedStatement stat = conn.prepareStatement(sql);
+	     
+		 
 		 stat.setString(1, input_nom.getText().toString());
 		 stat.setString(2, input_prenom.getText().toString());
 		 stat.setString(3, input_email.getText().toString());
 		 stat.setString(4, input_telephone.getText().toString());
 		 stat.setString(5, input_adresse.getText().toString());
 	     
-	     stat.executeQuery();*/
-	
-        Utilisateur nv_utilisateur = new Utilisateur(0, input_nom.getText(), input_prenom.getText(), input_email.getText(), input_telephone.getText(), input_adresse.getText());
+	     stat.executeUpdate();
+	         
+	     String sql_id ="SELECT idUtilisateur FROM utilisateur WHERE email = ?";
+	     
+	     PreparedStatement stat_id = conn.prepareStatement(sql_id);
+	     stat_id.setString(1, input_email.getText().toString());
+	     ResultSet rs = stat_id.executeQuery();
+	     
+	     String sql_client = "INSERT INTO client (idUtilisateur) Values (?)";
+
+	     PreparedStatement stat_a = conn.prepareStatement(sql_client);
+
+	     if (rs.next()) {
+	    	 stat_a.setInt(1, rs.getInt(1));
+	     }
+	     
+
+		 stat_a.executeUpdate();
+
+        /*Utilisateur nv_utilisateur = new Utilisateur(0, input_nom.getText(), input_prenom.getText(), input_email.getText(), input_telephone.getText(), input_adresse.getText());*/
 
         //System.out.println(nv_utilisateur);
         
-        client_table.getItems().add(nv_utilisateur);
+        //client_table.getItems().add(nv_utilisateur);
         
         input_nom.clear();
         input_prenom.clear();
@@ -64,6 +83,48 @@ public class GerantController extends MainController {
         input_adresse.clear();
 		
 	}
+	
+	@FXML
+	TextField input_v_matricule = new TextField();
+	@FXML
+	TextField input_v_marque = new TextField();
+	@FXML
+	TextField input_v_modele = new TextField();
+	@FXML
+	TextField input_v_kilometrage = new TextField();
+	@FXML
+	TextField input_v_climatisation = new TextField();
+	@FXML
+	TextField input_v_BoiteDeVitesse = new TextField();
+	@FXML
+	TextField input_v_type = new TextField();
+	
+	public void addButtonClicked_vehicule(ActionEvent event) throws SQLException {
+		
+		 String sql = "INSERT INTO vehicule (matricule, marque, modele, kilometrage, climatisation, typeBoiteDeVitesse, type) Values (?,?,?,?,?,?,?)";
+		 
+		 PreparedStatement stat = conn.prepareStatement(sql);
+	     
+		 stat.setString(1, input_v_matricule.getText().toString());
+		 stat.setString(2, input_v_marque.getText().toString());
+		 stat.setString(3, input_v_modele.getText().toString());
+		 stat.setInt(4, Integer.valueOf(input_v_kilometrage.getText().toString()));
+		 stat.setBoolean(5, Boolean.valueOf(input_v_climatisation.getText().toString()));
+		 stat.setString(6, input_v_BoiteDeVitesse.getText().toString());
+		 stat.setString(7, input_v_type.getText().toString());
+ 
+	     stat.executeUpdate();     
+       
+	     input_v_matricule.clear();
+	     input_v_marque.clear();
+	     input_v_modele.clear();
+	     input_v_kilometrage.clear();
+	     input_v_climatisation.clear();
+	     input_v_BoiteDeVitesse.clear();
+	     input_v_type.clear();	
+	}
+	
+	
 	
 	@FXML 
 	ObservableList<Utilisateur> clientselected, allclient; 
@@ -81,7 +142,8 @@ public class GerantController extends MainController {
 		System.out.println(pst);
 		
         pst.executeUpdate();
-        go_to_gestion_client(event);
+        //go_to_gestion_client(event);
+        print_clients(event);
 	}
 	
 	
@@ -97,6 +159,7 @@ public class GerantController extends MainController {
 	
 	@FXML
 	public void print_clients(ActionEvent event) throws SQLException {
+		client_table.getItems().clear();
         String sql = "Select * FROM utilisateur NATURAL JOIN client";
         PreparedStatement stat = conn.prepareStatement(sql);
         ResultSet rs = stat.executeQuery();
@@ -114,8 +177,41 @@ public class GerantController extends MainController {
 		idAdresse.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("idAdresse"));
 		
 		client_table.setItems(clients);
+		
 	}
 	
+	@FXML private TableView<Vehicule> vehicule_table;
+	@FXML private TableColumn<Vehicule, String> matricule;
+	@FXML private TableColumn<Vehicule, String> marque;
+	@FXML private TableColumn<Vehicule, String> modele;
+	@FXML private TableColumn<Vehicule, Integer> kilometrage;
+	@FXML private TableColumn<Vehicule, Boolean> climatisation;
+	@FXML private TableColumn<Vehicule, String> typeBoiteDeVitesse;
+	@FXML private TableColumn<Vehicule, String> type;
+	
+	public ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
+	
+	@FXML
+	public void print_vehicules(ActionEvent event) throws SQLException {
+		vehicule_table.getItems().clear();
+        String sql = "Select * FROM vehicule";
+        PreparedStatement stat = conn.prepareStatement(sql);
+        ResultSet rs = stat.executeQuery();
+        
+        while(rs.next()) {
+        	vehicules.add(new Vehicule(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getString(6),rs.getString(7)));
+        }
+        
+        matricule.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("matricule"));
+        marque.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("marque"));
+        modele.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("modele"));
+		kilometrage.setCellValueFactory(new PropertyValueFactory<Vehicule, Integer>("kilometrage"));
+		climatisation.setCellValueFactory(new PropertyValueFactory<Vehicule, Boolean>("climatisation"));
+		typeBoiteDeVitesse.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("typeBoiteDeVitesse"));
+		type.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("type"));
+		
+		vehicule_table.setItems(vehicules);
+	}
 	
 	
 	@FXML

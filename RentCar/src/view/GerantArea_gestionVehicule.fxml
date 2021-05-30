@@ -22,15 +22,15 @@
             <Font name="System Bold Italic" size="17.0" />
          </font>
       </Label>
-      <TableView layoutY="92.0" prefHeight="269.0" prefWidth="773.0">
+      <TableView fx:id="vehicule_table" layoutY="92.0" prefHeight="269.0" prefWidth="773.0">
         <columns>
-          <TableColumn prefWidth="117.0" text="matricule" />
-          <TableColumn prefWidth="117.0" text="marque" />
-            <TableColumn prefWidth="102.0" text="modele" />
-            <TableColumn prefWidth="101.0" text="kilometrage" />
-            <TableColumn prefWidth="117.0" text="climatisation" />
-            <TableColumn prefWidth="112.0" text="boite de vitesse" />
-            <TableColumn prefWidth="106.0" text="type" />
+          <TableColumn fx:id="matricule" prefWidth="117.0" text="matricule" />
+          <TableColumn fx:id="marque" prefWidth="117.0" text="marque" />
+            <TableColumn fx:id="modele" prefWidth="102.0" text="modele" />
+            <TableColumn fx:id="kilometrage" prefWidth="101.0" text="kilometrage" />
+            <TableColumn fx:id="climatisation" prefWidth="117.0" text="climatisation" />
+            <TableColumn fx:id="typeBoiteDeVitesse" prefWidth="112.0" text="boite de vitesse" />
+            <TableColumn fx:id="type" prefWidth="106.0" text="type" />
         </columns>
       </TableView>
       <Button layoutX="896.0" layoutY="214.0" mnemonicParsing="false" text="Recherche" />
@@ -51,14 +51,14 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <TextField layoutX="27.0" layoutY="444.0" promptText="matricule" />
-      <TextField layoutX="27.0" layoutY="526.0" promptText="modele" />
-      <TextField layoutX="27.0" layoutY="570.0" promptText="kilometrage" />
-      <TextField layoutX="27.0" layoutY="611.0" promptText="climatisation" />
-      <TextField layoutX="27.0" layoutY="650.0" promptText="boite de vitesse" />
-      <TextField layoutX="27.0" layoutY="484.0" promptText="marque" />
-      <TextField layoutX="27.0" layoutY="689.0" promptText="type" />
-      <Button layoutX="27.0" layoutY="731.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="149.0" text="Ajouter" />
+      <TextField fx:id="input_v_matricule" layoutX="27.0" layoutY="444.0" promptText="matricule" />
+      <TextField fx:id="input_v_modele" layoutX="27.0" layoutY="526.0" promptText="modele" />
+      <TextField fx:id="input_v_kilometrage" layoutX="27.0" layoutY="570.0" promptText="kilometrage" />
+      <TextField fx:id="input_v_climatisation" layoutX="27.0" layoutY="611.0" promptText="climatisation" />
+      <TextField fx:id="input_v_BoiteDeVitesse" layoutX="27.0" layoutY="650.0" promptText="boite de vitesse" />
+      <TextField fx:id="input_v_marque" layoutX="27.0" layoutY="484.0" promptText="marque" />
+      <TextField fx:id="input_v_type" layoutX="27.0" layoutY="689.0" promptText="type" />
+      <Button layoutX="27.0" layoutY="731.0" mnemonicParsing="false" onAction="#addButtonClicked_vehicule" prefHeight="35.0" prefWidth="149.0" text="Ajouter" />
       <Button layoutX="285.0" layoutY="411.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="149.0" text="Modifier" />
       <Separator layoutX="205.0" layoutY="360.0" orientation="VERTICAL" prefHeight="425.0" prefWidth="16.0" />
       <Separator layoutX="487.0" layoutY="359.0" orientation="VERTICAL" prefHeight="425.0" prefWidth="0.0" />
@@ -72,5 +72,6 @@
       <Button layoutX="160.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_vehicule" prefHeight="27.0" prefWidth="127.0" text="Gestion Véhicule" />
       <Button layoutX="307.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_finance" prefHeight="27.0" prefWidth="127.0" text="Gestion Finance" />
       <Button layoutX="312.0" layoutY="516.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="96.0" text="Supprimer" />
+      <Button layoutX="591.0" layoutY="429.0" mnemonicParsing="false" onAction="#print_vehicules" text="Afficher tous les véhicules" />
    </children>
 </Pane>
