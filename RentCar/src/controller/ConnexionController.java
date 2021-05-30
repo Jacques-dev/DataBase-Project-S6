@@ -36,22 +36,22 @@ public class ConnexionController extends MainController {
 			rs = stat.executeQuery();
 
 			if (rs.next()) {
-				goTo_GerantArea(event);
-				
+				goToGerantArea(event);
 			} 
-		} catch( Exception e) {
+		} catch(Exception e) {
 			
 		}
+		
 		try {
 			stat = conn.prepareStatement(sql_chauffeur);
 			stat.setString(1, identifiant.getText().toString());
 			stat.setString(2, mot_de_passe.getText().toString());
 			rs = stat.executeQuery();
 			if (rs.next()) {
-				goTo_ChauffeurArea(event);
+				goToChauffeurArea(event);
 	
 			}
-		} catch( Exception e) {
+		} catch(Exception e) {
 			
 		}
 		
@@ -59,7 +59,7 @@ public class ConnexionController extends MainController {
 	}
 	
 	
-	public void goTo_GerantArea(ActionEvent event) throws IOException {
+	public void goToGerantArea(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
@@ -67,7 +67,7 @@ public class ConnexionController extends MainController {
 		stage.show();
 	}
 	
-	public void goTo_ChauffeurArea(ActionEvent event) throws IOException {
+	public void goToChauffeurArea(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/view/ChauffeurArea.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);

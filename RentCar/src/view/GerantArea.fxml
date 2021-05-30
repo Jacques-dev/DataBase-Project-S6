@@ -78,7 +78,7 @@
          </font>
       </Button>
       <Separator layoutX="662.0" layoutY="569.0" prefHeight="15.0" prefWidth="396.0" />
-      <Button layoutX="14.0" layoutY="57.0" mnemonicParsing="false" onAction="#go_to_gestion_client" prefHeight="27.0" prefWidth="113.0" text="Gestion Client" />
+      <Button layoutX="14.0" layoutY="57.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="113.0" text="Gestion Client" />
       <Button layoutX="149.0" layoutY="57.0" mnemonicParsing="false" onAction="#go_to_gestion_vehicule" prefHeight="27.0" prefWidth="113.0" text="Gestion Véhicule" />
       <Button layoutX="280.0" layoutY="57.0" mnemonicParsing="false" onAction="#go_to_gestion_finance" prefHeight="27.0" prefWidth="113.0" text="Gestion Finance" />
    </children>
