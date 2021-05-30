@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,8 +40,6 @@ public class MainController extends Main implements Initializable {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		
-		printVehicules(event);
 	}
 	
 	@FXML private TableView<Vehicule> vehiculeTable;
@@ -66,7 +63,7 @@ public class MainController extends Main implements Initializable {
         while(rs.next()) {
         	vehicules.add(new Vehicule(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getString(6), rs.getString(7)));
         }
-        System.out.println(this.matricule);
+        
         matricule.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("matricule"));
         marque.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("marque"));
         modele.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("modele"));

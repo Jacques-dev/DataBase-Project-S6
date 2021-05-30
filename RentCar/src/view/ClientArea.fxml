@@ -28,8 +28,8 @@
                   <TableColumn fx:id="modele" prefWidth="75.0" text="modele" />
                   <TableColumn fx:id="kilometrage" prefWidth="75.0" text="kilometrage" />
                   <TableColumn fx:id="climatisation" prefWidth="79.0" text="climatisation" />
-                  <TableColumn fx:id="typeBoiteDeVitesse" prefWidth="71.0" text="BDV" />
-                  <TableColumn fx:id="type" prefWidth="75.0" text="carburant" />
+                  <TableColumn fx:id="typeBoiteDeVitesse" prefWidth="99.0" text="BDV" />
+                  <TableColumn fx:id="type" prefWidth="93.0" text="carburant" />
               </columns>
             </TableView>
          </content>
