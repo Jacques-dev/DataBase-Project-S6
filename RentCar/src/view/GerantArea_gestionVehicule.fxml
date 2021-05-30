@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="784.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="784.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GerantController">
    <children>
-      <Button fx:id="btn_deconnexion" layoutX="974.0" layoutY="-5.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="65.0" prefWidth="119.0" text="Deconnexion" />
+      <Button layoutX="974.0" layoutY="-5.0" mnemonicParsing="false" onAction="#goHome" prefHeight="65.0" prefWidth="119.0" text="Deconnexion" />
       <Label layoutX="487.0" layoutY="27.0" text="Gestion Véhicule">
          <font>
             <Font name="System Bold" size="18.0" />

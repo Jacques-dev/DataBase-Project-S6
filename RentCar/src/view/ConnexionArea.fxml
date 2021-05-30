@@ -6,13 +6,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConnexionController">
    <children>
       <TextField fx:id="identifiant" layoutX="215.0" layoutY="137.0" promptText="identifant" />
       <Label layoutX="215.0" layoutY="111.0" text="Identifiant" />
       <Label layoutX="215.0" layoutY="200.0" text="Mot de passe" />
       <PasswordField fx:id="mot_de_passe" layoutX="212.0" layoutY="225.0" promptText="mot de passe" />
-      <Button fx:id="btn_back" layoutY="359.0" mnemonicParsing="false" onAction="#go_back" prefHeight="41.0" prefWidth="78.0" text="Retour" />
+      <Button layoutY="359.0" mnemonicParsing="false" onAction="#goHome" prefHeight="41.0" prefWidth="78.0" text="Retour" />
       <Button layoutX="212.0" layoutY="287.0" mnemonicParsing="false" onAction="#login" text="Se connecter" />
       <Label layoutX="184.0" layoutY="335.0" text="Etat de connexion" />
       <Label fx:id="lbletat" layoutX="333.0" layoutY="335.0" />

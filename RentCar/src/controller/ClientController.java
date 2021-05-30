@@ -18,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.ProgramFidelite;
+import model.Vehicule;
 
 public class ClientController extends MainController {
 
@@ -45,6 +46,38 @@ public class ClientController extends MainController {
         prix.setCellValueFactory(new PropertyValueFactory<ProgramFidelite, Float>("prix"));
 		
         programFideliteTable.setItems(programs);
+	}
+	
+	@FXML private TableView<Vehicule> vehiculeTable;
+	@FXML private TableColumn<Vehicule, String> matricule;
+	@FXML private TableColumn<Vehicule, String> marque;
+	@FXML private TableColumn<Vehicule, String> modele;
+	@FXML private TableColumn<Vehicule, Integer> kilometrage;
+	@FXML private TableColumn<Vehicule, Boolean> climatisation;
+	@FXML private TableColumn<Vehicule, String> typeBoiteDeVitesse;
+	@FXML private TableColumn<Vehicule, String> type;
+	
+	
+	public ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
+	
+	public void printVehicules(ActionEvent event) throws SQLException {
+        String sql = "Select * From vehicule";
+        PreparedStatement stat = conn.prepareStatement(sql);
+        ResultSet rs = stat.executeQuery();
+        
+        while(rs.next()) {
+        	vehicules.add(new Vehicule(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getString(6), rs.getString(7)));
+        }
+        
+        matricule.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("matricule"));
+        marque.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("marque"));
+        modele.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("modele"));
+        kilometrage.setCellValueFactory(new PropertyValueFactory<Vehicule, Integer>("kilometrage"));
+        climatisation.setCellValueFactory(new PropertyValueFactory<Vehicule, Boolean>("climatisation"));
+        typeBoiteDeVitesse.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("typeBoiteDeVitesse"));
+        type.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("type"));
+		
+        vehiculeTable.setItems(vehicules);
 	}
 	
 	public void goToClientLocationArea(ActionEvent event) throws IOException, SQLException {
