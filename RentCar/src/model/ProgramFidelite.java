@@ -51,6 +51,4 @@ public class ProgramFidelite {
 		return "ProgramFidelite [idProgrammeFidelite=" + idProgrammeFidelite + ", duree=" + duree + ", description="
 				+ description + ", prix=" + prix + "]";
 	}
-	
-	
 }

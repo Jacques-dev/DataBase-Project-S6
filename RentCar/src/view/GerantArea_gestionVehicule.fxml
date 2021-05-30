@@ -41,12 +41,12 @@
             <Font name="System Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="287.0" layoutY="368.0" text="Modifier un véhicule">
+      <Label layoutX="287.0" layoutY="373.0" text="Modifier un véhicule">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="539.0" layoutY="373.0" text="Supprimer un véhicule">
+      <Label layoutX="276.0" layoutY="471.0" text="Supprimer un véhicule">
          <font>
             <Font size="17.0" />
          </font>
@@ -59,16 +59,7 @@
       <TextField layoutX="27.0" layoutY="484.0" promptText="marque" />
       <TextField layoutX="27.0" layoutY="689.0" promptText="type" />
       <Button layoutX="27.0" layoutY="731.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="149.0" text="Ajouter" />
-      <TextField layoutX="271.0" layoutY="403.0" prefHeight="25.0" prefWidth="185.0" promptText="matricule du véhicule à modifier" />
-      <TextField layoutX="271.0" layoutY="443.0" promptText="nouveau matricule" />
-      <TextField layoutX="271.0" layoutY="484.0" promptText="nouvelle marque" />
-      <TextField layoutX="271.0" layoutY="526.0" promptText="nouveau modele" />
-      <TextField layoutX="271.0" layoutY="570.0" promptText="nouveau kilometrage" />
-      <TextField layoutX="271.0" layoutY="611.0" promptText="climatisation" />
-      <TextField layoutX="271.0" layoutY="650.0" promptText="nouvelle boite de vitesse" />
-      <TextField layoutX="271.0" layoutY="689.0" promptText="nouveau type" />
-      <Button layoutX="271.0" layoutY="731.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="149.0" text="Modifier" />
-      <TextField layoutX="524.0" layoutY="416.0" prefHeight="25.0" prefWidth="197.0" promptText="Matricule du véhicule à supprimer" />
+      <Button layoutX="285.0" layoutY="411.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="149.0" text="Modifier" />
       <Separator layoutX="205.0" layoutY="360.0" orientation="VERTICAL" prefHeight="425.0" prefWidth="16.0" />
       <Separator layoutX="487.0" layoutY="359.0" orientation="VERTICAL" prefHeight="425.0" prefWidth="0.0" />
       <Separator layoutX="771.0" layoutY="341.0" orientation="VERTICAL" prefHeight="449.0" prefWidth="6.0" />
@@ -80,5 +71,6 @@
       <Button layoutX="14.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_client" prefHeight="27.0" prefWidth="127.0" text="Gestion Client" />
       <Button layoutX="160.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_vehicule" prefHeight="27.0" prefWidth="127.0" text="Gestion Véhicule" />
       <Button layoutX="307.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_finance" prefHeight="27.0" prefWidth="127.0" text="Gestion Finance" />
+      <Button layoutX="312.0" layoutY="516.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="96.0" text="Supprimer" />
    </children>
 </Pane>

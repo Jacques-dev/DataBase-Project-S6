@@ -36,7 +36,7 @@ public class ConnexionController extends MainController {
 			rs = stat.executeQuery();
 
 			if (rs.next()) {
-				goToGerantArea(event);
+				goToGerantAreaClient(event);
 			} 
 		} catch(Exception e) {
 			
@@ -55,12 +55,11 @@ public class ConnexionController extends MainController {
 			
 		}
 		
-		
 	}
 	
 	
-	public void goToGerantArea(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea.fxml"));
+	public void goToGerantAreaClient(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea_gestionClient.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);

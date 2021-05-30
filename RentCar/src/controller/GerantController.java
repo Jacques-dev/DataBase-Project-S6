@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -67,21 +68,20 @@ public class GerantController extends MainController {
 	@FXML 
 	ObservableList<Utilisateur> clientselected, allclient; 
 
-	public void deleteButtonClicked(ActionEvent event) throws SQLException {
+	public void deleteButtonClicked(ActionEvent event) throws SQLException, IOException {
 		
-        
 		allclient = client_table.getItems();
 		clientselected = client_table.getSelectionModel().getSelectedItems();
-		System.out.println(clientselected);
-		//String sql = "DELETE From utilisateur where idUtilisateur = ?";
-		/*try {
-			stat = conn.prepareStatement(sql);
-			stat.setString(1, clientselected.getId());
-		}*/
-        //PreparedStatement stat = conn.prepareStatement(sql);
-        //ResultSet rs = stat.executeQuery();
-		clientselected.forEach(allclient::remove);
+		System.out.println(clientselected.get(0).getId());
+		String sql = ("DELETE FROM utilisateur where idUtilisateur = ? ");
 		
+		PreparedStatement pst = conn.prepareStatement(sql);
+		
+		pst.setInt(1, clientselected.get(0).getId());
+		System.out.println(pst);
+		
+        pst.executeUpdate();
+        go_to_gestion_client(event);
 	}
 	
 	
@@ -118,8 +118,6 @@ public class GerantController extends MainController {
 	
 	
 	
-	
-	
 	@FXML
 	public void go_to_gestion_vehicule(ActionEvent event) throws IOException {
 		
@@ -134,6 +132,16 @@ public class GerantController extends MainController {
 	public void go_to_gestion_finance(ActionEvent event) throws IOException {
 		
 		Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea_gestionFinance.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		
+	}
+	@FXML
+	public void go_to_gestion_client(ActionEvent event) throws IOException {
+		
+		Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea_gestionClient.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
