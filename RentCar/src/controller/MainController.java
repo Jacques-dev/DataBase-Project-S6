@@ -103,36 +103,99 @@ public class MainController extends Main implements Initializable {
 		stage.show();
 	}
 	
-	@FXML private TableView<Utilisateur> utilisateurTable;
-	@FXML private TableColumn<Utilisateur, Integer> idUtilisateur;
+	@FXML private TableView<Utilisateur> client_table;
 	@FXML private TableColumn<Utilisateur, String> nom;
 	@FXML private TableColumn<Utilisateur, String> prenom;
 	@FXML private TableColumn<Utilisateur, String> email;
 	@FXML private TableColumn<Utilisateur, String> telephone;
 	@FXML private TableColumn<Utilisateur, String> idAdresse;
+	@FXML private TableColumn<Utilisateur, Integer> idUtilisateur;
 	
-	public ObservableList<Utilisateur> utilisateurs = FXCollections.observableArrayList();
+	public ObservableList<Utilisateur> clients = FXCollections.observableArrayList();
 	
 	@FXML
-	public void printUsers(ActionEvent event) throws SQLException {
-        String sql = "Select * From utilisateur";
+	public void print_clients(ActionEvent event) throws SQLException {
+        String sql = "Select * FROM utilisateur NATURAL JOIN client";
         PreparedStatement stat = conn.prepareStatement(sql);
         ResultSet rs = stat.executeQuery();
         
         while(rs.next()) {
-        	utilisateurs.add(new Utilisateur(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+        	clients.add(new Utilisateur(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
         }
         
         idUtilisateur.setCellValueFactory(new PropertyValueFactory<Utilisateur, Integer>("id"));
+        
 		nom.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("nom"));
 		prenom.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("prenom"));
 		email.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("email"));
 		telephone.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("telephone"));
 		idAdresse.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("idAdresse"));
 		
-		utilisateurTable.setItems(utilisateurs);
+		client_table.setItems(clients);
 	}
 	
+	@FXML 
+	ObservableList<Utilisateur> clientselected, allclient; 
+
+	public void deleteButtonClicked(ActionEvent event) throws SQLException {
+		
+        
+		allclient = client_table.getItems();
+		clientselected = client_table.getSelectionModel().getSelectedItems();
+		System.out.println(clientselected);
+		//String sql = "DELETE From utilisateur where idUtilisateur = ?";
+		/*try {
+			stat = conn.prepareStatement(sql);
+			stat.setString(1, clientselected.getId());
+		}*/
+        //PreparedStatement stat = conn.prepareStatement(sql);
+        //ResultSet rs = stat.executeQuery();
+		clientselected.forEach(allclient::remove);
+		
+	}
+	
+	
+	
+	@FXML
+	TextField input_nom = new TextField();
+	@FXML
+	TextField input_prenom = new TextField();
+	@FXML
+	TextField input_email = new TextField();
+	@FXML
+	TextField input_telephone = new TextField();
+	@FXML
+	TextField input_adresse = new TextField();
+	
+	
+	public void addButtonClicked(ActionEvent event) throws SQLException {
+		/* String sql = "Select max(idUtilisateur) FROM utilisateur NATURAL JOIN client";
+	     PreparedStatement stat = conn.prepareStatement(sql);
+	     ResultSet rs = stat.executeQuery();
+	     System.out.println(rs.getInt(1));*/
+		 /*String sql = "INSERT INTO utilisateur (nom,prenom,email,telephone,idAdresse) Values (?,?,?,?,?)";
+		 PreparedStatement stat = conn.prepareStatement(sql);
+		 stat.setString(1, input_nom.getText().toString());
+		 stat.setString(2, input_prenom.getText().toString());
+		 stat.setString(3, input_email.getText().toString());
+		 stat.setString(4, input_telephone.getText().toString());
+		 stat.setString(5, input_adresse.getText().toString());
+	     
+	     stat.executeQuery();*/
+	
+        Utilisateur nv_utilisateur = new Utilisateur(0, input_nom.getText(), input_prenom.getText(), input_email.getText(), input_telephone.getText(), input_adresse.getText());
+
+        //System.out.println(nv_utilisateur);
+        
+        client_table.getItems().add(nv_utilisateur);
+        
+        input_nom.clear();
+        input_prenom.clear();
+        input_email.clear();
+        input_telephone.clear();
+        input_adresse.clear();
+		
+	}
 	
 	
 	
