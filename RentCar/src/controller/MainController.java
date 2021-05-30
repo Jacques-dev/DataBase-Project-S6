@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,8 +18,11 @@ import javafx.scene.Parent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Utilisateur;
@@ -75,24 +79,32 @@ public class MainController extends Main implements Initializable {
 	}
 	
 	
-	
-	
-	
-	
-	
 	@FXML private Button staffMemberButton;
 	
 	
-	public void goToStaffMemberArea(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/view/StaffMemberArea.fxml"));
+	public void goTo_connexion_to_StaffMemberArea(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/view/Connexion_to_StaffMemberArea.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
 	}
 	
+	public void goTo_GerantArea(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 	
-	
+	public void goTo_ChauffeurArea(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/view/ChauffeurArea.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 	
 	@FXML private TableView<Utilisateur> utilisateurTable;
 	@FXML private TableColumn<Utilisateur, Integer> idUtilisateur;
@@ -124,8 +136,110 @@ public class MainController extends Main implements Initializable {
 		utilisateurTable.setItems(utilisateurs);
 	}
 	
+	
+	
+	
+	@FXML private Button btn_back;
+	
+	public void go_back(ActionEvent event) throws IOException {
+		
+		Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		
+	}
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
 	}
+	
+	
+		@FXML private TextField identifiant;
+		@FXML private PasswordField mot_de_passe;
+		@FXML private Label lbletat;
+		
+		@FXML 
+		
+		public void login(ActionEvent event) {
+			
+			PreparedStatement stat = null;
+			ResultSet rs = null;
+			String sql_gerant = "SELECT idUtilisateur FROM employe WHERE login = ? AND motDePasse = ? AND idUtilisateur in (SELECT IdUtilisateur FROM gerant)";
+			String sql_chauffeur = "SELECT idUtilisateur FROM employe WHERE login = ? AND motDePasse = ? AND idUtilisateur in (SELECT IdUtilisateur FROM chauffeur)";
+	
+			try {
+				stat = conn.prepareStatement(sql_gerant);
+				stat.setString(1, identifiant.getText().toString());
+				stat.setString(2, mot_de_passe.getText().toString());
+				rs = stat.executeQuery();
+	
+				if (rs.next()) {
+					goTo_GerantArea(event);
+					
+				} 
+			} catch( Exception e) {
+				
+			}
+			try {
+				stat = conn.prepareStatement(sql_chauffeur);
+				stat.setString(1, identifiant.getText().toString());
+				stat.setString(2, mot_de_passe.getText().toString());
+				rs = stat.executeQuery();
+				if (rs.next()) {
+					goTo_ChauffeurArea(event);
+		
+				}
+			} catch( Exception e) {
+				
+			}
+			
+			
+		}
+	
+		@FXML private Button btn_deconnexion;
+		public void deconnexion(ActionEvent event) throws IOException {
+			
+			Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+			
+		}
+		
+		@FXML
+		public void go_to_gestion_client(ActionEvent event) throws IOException {
+			
+			Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea.fxml"));
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+			
+		}
+		@FXML
+		public void go_to_gestion_vehicule(ActionEvent event) throws IOException {
+			
+			Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea_gestionVehicule.fxml"));
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+			
+		}
+		@FXML
+		public void go_to_gestion_finance(ActionEvent event) throws IOException {
+			
+			Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea_gestionFinance.fxml"));
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+			
+		}
+
 }

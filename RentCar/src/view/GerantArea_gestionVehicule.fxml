@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="784.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+   <children>
+      <Button fx:id="btn_deconnexion" layoutX="974.0" layoutY="-5.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="65.0" prefWidth="119.0" text="Deconnexion" />
+      <Label layoutX="487.0" layoutY="27.0" text="Gestion Véhicule">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="14.0" text="Gérant">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Label>
+      <TableView layoutY="92.0" prefHeight="269.0" prefWidth="773.0">
+        <columns>
+          <TableColumn prefWidth="117.0" text="matricule" />
+          <TableColumn prefWidth="117.0" text="marque" />
+            <TableColumn prefWidth="102.0" text="modele" />
+            <TableColumn prefWidth="101.0" text="kilometrage" />
+            <TableColumn prefWidth="117.0" text="climatisation" />
+            <TableColumn prefWidth="112.0" text="boite de vitesse" />
+            <TableColumn prefWidth="106.0" text="type" />
+        </columns>
+      </TableView>
+      <Button layoutX="896.0" layoutY="214.0" mnemonicParsing="false" text="Recherche" />
+      <TextField layoutX="857.0" layoutY="179.0" promptText="Recherche par marque" />
+      <Button layoutX="813.0" layoutY="275.0" mnemonicParsing="false" text="Afficher les véhicules en cours de location" />
+      <Label layoutX="39.0" layoutY="386.0" prefHeight="27.0" prefWidth="135.0" text="Ajouter un véhicule">
+         <font>
+            <Font name="System Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="287.0" layoutY="368.0" text="Modifier un véhicule">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="539.0" layoutY="373.0" text="Supprimer un véhicule">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <TextField layoutX="27.0" layoutY="444.0" promptText="matricule" />
+      <TextField layoutX="27.0" layoutY="526.0" promptText="modele" />
+      <TextField layoutX="27.0" layoutY="570.0" promptText="kilometrage" />
+      <TextField layoutX="27.0" layoutY="611.0" promptText="climatisation" />
+      <TextField layoutX="27.0" layoutY="650.0" promptText="boite de vitesse" />
+      <TextField layoutX="27.0" layoutY="484.0" promptText="marque" />
+      <TextField layoutX="27.0" layoutY="689.0" promptText="type" />
+      <Button layoutX="27.0" layoutY="731.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="149.0" text="Ajouter" />
+      <TextField layoutX="271.0" layoutY="403.0" prefHeight="25.0" prefWidth="185.0" promptText="matricule du véhicule à modifier" />
+      <TextField layoutX="271.0" layoutY="443.0" promptText="nouveau matricule" />
+      <TextField layoutX="271.0" layoutY="484.0" promptText="nouvelle marque" />
+      <TextField layoutX="271.0" layoutY="526.0" promptText="nouveau modele" />
+      <TextField layoutX="271.0" layoutY="570.0" promptText="nouveau kilometrage" />
+      <TextField layoutX="271.0" layoutY="611.0" promptText="climatisation" />
+      <TextField layoutX="271.0" layoutY="650.0" promptText="nouvelle boite de vitesse" />
+      <TextField layoutX="271.0" layoutY="689.0" promptText="nouveau type" />
+      <Button layoutX="271.0" layoutY="731.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="149.0" text="Modifier" />
+      <TextField layoutX="524.0" layoutY="416.0" prefHeight="25.0" prefWidth="197.0" promptText="Matricule du véhicule à supprimer" />
+      <Separator layoutX="205.0" layoutY="360.0" orientation="VERTICAL" prefHeight="425.0" prefWidth="16.0" />
+      <Separator layoutX="487.0" layoutY="359.0" orientation="VERTICAL" prefHeight="425.0" prefWidth="0.0" />
+      <Separator layoutX="771.0" layoutY="341.0" orientation="VERTICAL" prefHeight="449.0" prefWidth="6.0" />
+      <Label layoutX="839.0" layoutY="110.0" text="Recherche appronfondie">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Button layoutX="14.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_client" prefHeight="27.0" prefWidth="127.0" text="Gestion Client" />
+      <Button layoutX="160.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_vehicule" prefHeight="27.0" prefWidth="127.0" text="Gestion Véhicule" />
+      <Button layoutX="307.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_finance" prefHeight="27.0" prefWidth="127.0" text="Gestion Finance" />
+   </children>
+</Pane>
