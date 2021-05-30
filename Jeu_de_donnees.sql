@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : Dim 30 mai 2021 à 14:46
+-- Généré le : Dim 30 mai 2021 à 18:05
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -226,8 +226,8 @@ CREATE TABLE IF NOT EXISTS `loue` (
   `matricule` varchar(7) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
   `assurance` tinyint(1) NOT NULL,
-  `duree` time NOT NULL,
-  `datePriseDeResevration` date NOT NULL,
+  `duree` int(11) NOT NULL,
+  `datePriseDeReservation` date NOT NULL,
   PRIMARY KEY (`matricule`,`idUtilisateur`),
   KEY `loue_Client0_FK` (`idUtilisateur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -272,6 +272,13 @@ CREATE TABLE IF NOT EXISTS `reserve` (
   KEY `reserve_Vehicule0_FK` (`matricule`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `reserve`
+--
+
+INSERT INTO `reserve` (`idUtilisateur`, `matricule`, `dateReservation`, `datePriseDeReservation`) VALUES
+(3, 'AA125AA', '2022-05-05', '2021-05-30');
+
 -- --------------------------------------------------------
 
 --
@@ -288,6 +295,13 @@ CREATE TABLE IF NOT EXISTS `retourne` (
   KEY `retourne_Client0_FK` (`idUtilisateur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `retourne`
+--
+
+INSERT INTO `retourne` (`matricule`, `idUtilisateur`, `date`, `etatOrigine`) VALUES
+('AA125AA', 3, '2021-05-30', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -303,6 +317,13 @@ CREATE TABLE IF NOT EXISTS `souscrire` (
   PRIMARY KEY (`idUtilisateur`,`idProgrammeFidelite`),
   KEY `souscrire_ProgrammeFidelite0_FK` (`idProgrammeFidelite`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `souscrire`
+--
+
+INSERT INTO `souscrire` (`idUtilisateur`, `idProgrammeFidelite`, `dateSouscription`, `tauxReduction`) VALUES
+(3, 1, '2021-05-30', 0);
 
 -- --------------------------------------------------------
 

@@ -100,6 +100,30 @@ public class ClientController extends MainController implements Initializable {
         print_clients(event);
 	}
 	
+	public void printVehicules() throws SQLException {
+		vehiculeTable.getItems().clear();
+        String sql = "Select * From vehicule WHERE matricule not in (select matricule from loue)";
+        PreparedStatement stat = conn.prepareStatement(sql);
+        ResultSet rs = stat.executeQuery();
+        
+        while(rs.next()) {
+        	vehicules.add(new Vehicule(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getString(6), rs.getString(7)));
+        }
+        
+        matricule.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("matricule"));
+        marque.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("marque"));
+        modele.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("modele"));
+        kilometrage.setCellValueFactory(new PropertyValueFactory<Vehicule, Integer>("kilometrage"));
+        climatisation.setCellValueFactory(new PropertyValueFactory<Vehicule, Boolean>("climatisation"));
+        typeBoiteDeVitesse.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("typeBoiteDeVitesse"));
+        type.setCellValueFactory(new PropertyValueFactory<Vehicule, String>("type"));
+        
+        
+        vehiculeTable.setItems(vehicules);
+        
+//        print_clients();
+	}
+	
 	public void printVehiculesLoue(ActionEvent event) throws SQLException {
 		vehiculeTable.getItems().clear();
         String sql = "Select * From vehicule WHERE matricule in (select matricule from loue)";
@@ -195,6 +219,11 @@ public class ClientController extends MainController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		input_etat.getItems().addAll(listOfEtat);
 		input_etat.setOnAction(this::updateEtatLabel);
+		try {
+			printVehicules();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void updateEtatLabel(ActionEvent event) {
@@ -206,6 +235,7 @@ public class ClientController extends MainController implements Initializable {
 	
 	
 	@FXML public void loue(ActionEvent event) {
+		vehiculeTable.getItems().clear();
 		String sql = ("INSERT INTO loue (matricule, idUtilisateur, assurance, duree, datePriseDeReservation) VALUES (?, ?, ?, ?, ?)");
 		
 		try {
@@ -218,10 +248,15 @@ public class ClientController extends MainController implements Initializable {
 			pst.setString(5, java.time.LocalDate.now().toString());
 
 	        pst.executeUpdate();
-
+	        
 			lbletat.setText("Location enregistré");
 		} catch(Exception e) {
 			lbletat.setText("Location erreur");
+		}
+		try {
+			printVehicules();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	
