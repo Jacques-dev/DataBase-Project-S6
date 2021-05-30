@@ -11,7 +11,7 @@
 
 <Pane prefHeight="624.0" prefWidth="926.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientController">
    <children>
-      <Label layoutX="406.0" layoutY="14.0" text="RENTCAR">
+      <Label layoutX="798.0" layoutY="14.0" text="RENTCAR">
          <font>
             <Font size="27.0" />
          </font>
@@ -35,10 +35,11 @@
          </columns>
       </TableView>
       <Button layoutX="850.0" layoutY="94.0" mnemonicParsing="false" onAction="#souscrit" text="souscrire" />
-      <Label fx:id="lbletat" layoutX="781.0" layoutY="25.0" text="Label" />
+      <Label fx:id="lbletat" layoutX="437.0" layoutY="141.0" prefHeight="17.0" prefWidth="126.0" />
       <TextField fx:id="input_idProgramFidelite" layoutX="314.0" layoutY="94.0" promptText="num programme fidélité" />
       <TextField fx:id="input_idUtilisateur" layoutX="484.0" layoutY="94.0" promptText="idUtilisateur" />
-      <TextField fx:id="input_duree" layoutX="751.0" layoutY="94.0" prefHeight="25.0" prefWidth="61.0" promptText="durée" />
       <CheckBox fx:id="input_tauxReduction" layoutX="646.0" layoutY="98.0" mnemonicParsing="false" text="déjà souscrit ?" />
+      <TextField fx:id="filterField" layoutX="683.0" layoutY="149.0" prefHeight="25.0" prefWidth="220.0" promptText="Rechercher client" />
+      <Button layoutX="250.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToClientRetourArea" text="Faire un retour de location" />
    </children>
 </Pane>
