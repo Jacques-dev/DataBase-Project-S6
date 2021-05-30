@@ -22,7 +22,7 @@
             <Font name="System Bold Italic" size="17.0" />
          </font>
       </Label>
-      <TableView fx:id="vehicule_table" layoutY="92.0" prefHeight="269.0" prefWidth="773.0">
+      <TableView fx:id="vehicule_table" layoutY="92.0" onMouseClicked="#getSelected_v" prefHeight="269.0" prefWidth="773.0">
         <columns>
           <TableColumn fx:id="matricule" prefWidth="117.0" text="matricule" />
           <TableColumn fx:id="marque" prefWidth="117.0" text="marque" />
@@ -59,7 +59,7 @@
       <TextField fx:id="input_v_marque" layoutX="27.0" layoutY="484.0" promptText="marque" />
       <TextField fx:id="input_v_type" layoutX="27.0" layoutY="689.0" promptText="type" />
       <Button layoutX="27.0" layoutY="731.0" mnemonicParsing="false" onAction="#addButtonClicked_vehicule" prefHeight="35.0" prefWidth="149.0" text="Ajouter" />
-      <Button layoutX="285.0" layoutY="411.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="149.0" text="Modifier" />
+      <Button layoutX="285.0" layoutY="411.0" mnemonicParsing="false" onAction="#updateVehiculeInfo" prefHeight="35.0" prefWidth="149.0" text="Modifier" />
       <Separator layoutX="205.0" layoutY="360.0" orientation="VERTICAL" prefHeight="425.0" prefWidth="16.0" />
       <Separator layoutX="487.0" layoutY="359.0" orientation="VERTICAL" prefHeight="425.0" prefWidth="0.0" />
       <Separator layoutX="771.0" layoutY="341.0" orientation="VERTICAL" prefHeight="449.0" prefWidth="6.0" />

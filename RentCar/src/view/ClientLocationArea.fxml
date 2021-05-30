@@ -17,7 +17,7 @@
             <Font size="27.0" />
          </font>
       </Label>
-      <TableView fx:id="vehiculeTable" layoutX="14.0" layoutY="193.0" prefHeight="396.0" prefWidth="615.0">
+      <TableView fx:id="vehiculeTable" layoutX="14.0" layoutY="193.0" onMouseClicked="#getSelected_v_a_louer" prefHeight="396.0" prefWidth="615.0">
         <columns>
           <TableColumn fx:id="matricule" prefWidth="75.0" text="matricule" />
           <TableColumn fx:id="marque" prefWidth="75.0" text="marque" />
@@ -31,7 +31,7 @@
       <Button layoutX="64.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToClientFideliteArea" text="Adhérer à un programme de fidélité" />
       <Button layoutX="-1.0" layoutY="2.0" mnemonicParsing="false" onAction="#goHome" text="Retour" />
       <TextField fx:id="input_idUtilisateur" layoutX="428.0" layoutY="94.0" promptText="num client" />
-      <TableView fx:id="clientTable" layoutX="682.0" layoutY="193.0" prefHeight="396.0" prefWidth="226.0">
+      <TableView fx:id="clientTable" layoutX="682.0" layoutY="193.0" onMouseClicked="#getSelected_id_loueur" prefHeight="396.0" prefWidth="226.0">
          <columns>
             <TableColumn fx:id="idUtilisateur" prefWidth="75.0" text="num client" />
             <TableColumn fx:id="nom" prefWidth="75.0" text="nom" />

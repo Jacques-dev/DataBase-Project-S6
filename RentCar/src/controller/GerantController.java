@@ -82,6 +82,8 @@ public class GerantController extends MainController {
 	@FXML TextField input_v_type = new TextField();
 	public void addButtonClicked_vehicule(ActionEvent event) throws SQLException {
 		
+		 vehicule_table.getItems().clear();
+		
 		 String sql = "INSERT INTO vehicule (matricule, marque, modele, kilometrage, climatisation, typeBoiteDeVitesse, type) Values (?,?,?,?,?,?,?)";
 		 
 		 PreparedStatement stat = conn.prepareStatement(sql);
@@ -103,8 +105,22 @@ public class GerantController extends MainController {
 	     input_v_climatisation.clear();
 	     input_v_BoiteDeVitesse.clear();
 	     input_v_type.clear();	
+	     
+	     print_vehicules(event);
 	}
 	
+	public void getSelected_v(MouseEvent event) throws IOException{
+		int index = vehicule_table.getSelectionModel().getSelectedIndex();
+		vehiculeselected = vehicule_table.getSelectionModel().getSelectedItems();
+		
+		input_v_matricule.setText(matricule.getCellData(index).toString());
+		input_v_marque.setText(marque.getCellData(index).toString());
+		input_v_modele.setText(modele.getCellData(index).toString());
+		input_v_kilometrage.setText(kilometrage.getCellData(index).toString());
+		input_v_climatisation.setText(climatisation.getCellData(index).toString());
+		input_v_BoiteDeVitesse.setText(typeBoiteDeVitesse.getCellData(index).toString());
+		input_v_type.setText(type.getCellData(index).toString());
+	}
 	
 	public void getSelected(MouseEvent event) throws IOException{
 		int index = client_table.getSelectionModel().getSelectedIndex();
@@ -116,7 +132,6 @@ public class GerantController extends MainController {
 		input_telephone.setText(telephone.getCellData(index).toString());
 		input_adresse.setText(idAdresse.getCellData(index).toString());
 	}
-	
 	
 	
 	@FXML 
@@ -214,6 +229,31 @@ public class GerantController extends MainController {
 		client_table.setItems(clients);
 	}
 	
+	@FXML TextField input_client_matricule_recherche = new TextField();
+	public void rechercher_client_matricule(ActionEvent event) throws SQLException{
+		
+		client_table.getItems().clear();
+        String sql = "Select utilisateur.* FROM utilisateur NATURAL JOIN loue WHERE matricule = ?";
+        PreparedStatement stat = conn.prepareStatement(sql);
+        stat.setString(1, input_client_matricule_recherche.getText().toString());
+        ResultSet rs = stat.executeQuery();
+        
+        while(rs.next()) {
+        	clients.add(new Utilisateur(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+        }
+
+        
+        idUtilisateur.setCellValueFactory(new PropertyValueFactory<Utilisateur, Integer>("id")); 
+		nom.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("nom"));
+		prenom.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("prenom"));
+		email.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("email"));
+		telephone.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("telephone"));
+		idAdresse.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("idAdresse"));
+		
+		client_table.setItems(clients);
+	}
+	
+	
 	
 	public void updateClientInfo(ActionEvent event) throws SQLException{
 		
@@ -237,7 +277,37 @@ public class GerantController extends MainController {
 	     print_clients(event);
 	}
 	
+	
+	public void updateVehiculeInfo(ActionEvent event) throws SQLException{
+		
+		//System.out.println("Balise A");
+		int index = vehicule_table.getSelectionModel().getSelectedIndex();
+		String matricule_concerne = matricule.getCellData(index).toString();
+		String sql = "UPDATE vehicule SET matricule = ? ,marque = ? ,modele = ?, kilometrage = ?, climatisation = ?, typeBoiteDeVitesse = ?, type = ?  WHERE matricule = ?";
+		 
+		 PreparedStatement stat = conn.prepareStatement(sql);
+	     
+		 //System.out.println("Balise B");
+		 
+		 stat.setString(1, input_v_matricule.getText().toString());
+		 stat.setString(2, input_v_marque.getText().toString());
+		 stat.setString(3, input_v_modele.getText().toString());
+		 stat.setInt(4, Integer.valueOf(input_v_kilometrage.getText().toString()));
+		 stat.setBoolean(5, Boolean.valueOf(input_v_climatisation.getText().toString()));
+		 stat.setString(6, input_v_BoiteDeVitesse.getText().toString());
+		 stat.setString(7, input_v_type.getText().toString());
+		 stat.setString(8, String.valueOf(matricule_concerne));
+	     stat.executeUpdate();
+	     vehicule_table.getItems().clear();
+	     print_vehicules(event);
+	}
+	
+	
+
+	
+	
 	@FXML private TableView<Vehicule> vehicule_table;
+	
 	@FXML private TableColumn<Vehicule, String> matricule;
 	@FXML private TableColumn<Vehicule, String> marque;
 	@FXML private TableColumn<Vehicule, String> modele;
@@ -292,8 +362,6 @@ public class GerantController extends MainController {
 		vehicule_table.setItems(vehicules);
 	}
 
-	
-	
 	public void print_vehicule_loue(ActionEvent event) throws SQLException{
 		vehicule_table.getItems().clear();
         String sql = "Select * FROM vehicule where matricule in (SELECT matricule FROM loue)";
@@ -315,7 +383,6 @@ public class GerantController extends MainController {
 		vehicule_table.setItems(vehicules);
 	}
 	
-	
 	@FXML
 	public void go_to_gestion_vehicule(ActionEvent event) throws IOException {
 		
@@ -326,6 +393,7 @@ public class GerantController extends MainController {
 		stage.show();
 		
 	}
+	
 	@FXML
 	public void go_to_gestion_finance(ActionEvent event) throws IOException {
 		

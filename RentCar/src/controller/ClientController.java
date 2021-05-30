@@ -27,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.ProgramFidelite;
 import model.Utilisateur;
@@ -343,5 +344,24 @@ public class ClientController extends MainController implements Initializable {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	
+	public void getSelected_v_a_louer(MouseEvent event) throws IOException{
+		int index = vehiculeTable.getSelectionModel().getSelectedIndex();
+		//vehicule = vehiculeTable.getSelectionModel().getSelectedItems();
+		input_matricule.setText(matricule.getCellData(index).toString());
+		
+	}
+	public void getSelected_id_loueur(MouseEvent event) throws IOException{
+		int index = clientTable.getSelectionModel().getSelectedIndex();
+		//vehicule = vehiculeTable.getSelectionModel().getSelectedItems();
+		input_idUtilisateur.setText(idUtilisateur.getCellData(index).toString());
+	}
+	
+	public void getSelected_id_program(MouseEvent event) throws IOException{
+		int index = programFideliteTable.getSelectionModel().getSelectedIndex();
+		//vehicule = vehiculeTable.getSelectionModel().getSelectedItems();
+		input_idProgramFidelite.setText(idProgrammeFidelite.getCellData(index).toString());
 	}
 }
