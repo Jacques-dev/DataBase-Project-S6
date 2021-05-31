@@ -59,6 +59,7 @@ public class ConnexionController extends MainController {
 	
 	
 	public void goToGerantAreaClient(ActionEvent event) throws IOException {
+		actualscene = "gestionClient";
 		Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea_gestionClient.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
@@ -67,6 +68,7 @@ public class ConnexionController extends MainController {
 	}
 	
 	public void goToChauffeurArea(ActionEvent event) throws IOException {
+		actualscene = "ChauffeurArea";
 		Parent root = FXMLLoader.load(getClass().getResource("/view/ChauffeurArea.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);

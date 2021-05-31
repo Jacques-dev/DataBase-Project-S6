@@ -1,18 +1,18 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
-
+import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,8 +25,26 @@ import javafx.stage.Stage;
 import model.Utilisateur;
 import model.Vehicule;
 
-public class GerantController extends MainController {
+public class GerantController extends MainController implements Initializable {
 
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		try {
+			switch (actualscene) {
+			case "gestionVehicule":
+				print_vehicules();
+				break;
+			case "gestionFinance":
+
+				break;
+			case "gestionClient":
+				print_clients();
+				break;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@FXML TextField input_nom = new TextField();
 	@FXML TextField input_prenom = new TextField();
@@ -71,8 +89,7 @@ public class GerantController extends MainController {
         input_adresse.clear();
 		
 	}
-	
-	
+
 	@FXML TextField input_v_matricule = new TextField();
 	@FXML TextField input_v_marque = new TextField();
 	@FXML TextField input_v_modele = new TextField();
@@ -134,8 +151,7 @@ public class GerantController extends MainController {
 	}
 	
 	
-	@FXML 
-	ObservableList<Utilisateur> clientselected, allclient; 
+	@FXML ObservableList<Utilisateur> clientselected, allclient; 
 	public void deleteButtonClicked(ActionEvent event) throws SQLException, IOException {
 		
 		allclient = client_table.getItems();
@@ -153,11 +169,11 @@ public class GerantController extends MainController {
 		pst.executeUpdate();
         pst_client.executeUpdate();
         //go_to_gestion_client(event);
+        client_table.getItems().clear();
         print_clients(event);
 	}
 	
-	@FXML 
-	ObservableList<Vehicule> vehiculeselected, allvehicule; 
+	@FXML ObservableList<Vehicule> vehiculeselected, allvehicule; 
 	public void deleteButtonClicked_v(ActionEvent event) throws SQLException, IOException {
 		
 		allvehicule = vehicule_table.getItems();
@@ -171,7 +187,8 @@ public class GerantController extends MainController {
 		//System.out.println(pst);
 		
         pst.executeUpdate();
-        //go_to_gestion_client(event);
+//        go_to_gestion_client(event);
+        vehicule_table.getItems().clear();
         print_vehicules(event);
 	}
 	
@@ -183,9 +200,13 @@ public class GerantController extends MainController {
 	@FXML private TableColumn<Utilisateur, String> telephone;
 	@FXML private TableColumn<Utilisateur, String> idAdresse;
 	@FXML private TableColumn<Utilisateur, Integer> idUtilisateur;
-	public ObservableList<Utilisateur> clients = FXCollections.observableArrayList();
-	@FXML
+	
+	ObservableList<Utilisateur> clients = FXCollections.observableArrayList();
 	public void print_clients(ActionEvent event) throws SQLException {
+		print_clients();
+	}
+	
+	public void print_clients() throws SQLException {
 		client_table.getItems().clear();
         String sql = "Select * FROM utilisateur NATURAL JOIN client";
         PreparedStatement stat = conn.prepareStatement(sql);
@@ -204,9 +225,7 @@ public class GerantController extends MainController {
 		idAdresse.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("idAdresse"));
 		
 		client_table.setItems(clients);
-		
 	}
-	
 	
 	public void print_clients_loueur(ActionEvent event) throws SQLException{
 		client_table.getItems().clear();
@@ -231,7 +250,6 @@ public class GerantController extends MainController {
 	
 	@FXML TextField input_client_matricule_recherche = new TextField();
 	public void rechercher_client_matricule(ActionEvent event) throws SQLException{
-		
 		client_table.getItems().clear();
         String sql = "Select utilisateur.* FROM utilisateur NATURAL JOIN loue WHERE matricule = ?";
         PreparedStatement stat = conn.prepareStatement(sql);
@@ -253,8 +271,6 @@ public class GerantController extends MainController {
 		client_table.setItems(clients);
 	}
 	
-	
-	
 	public void updateClientInfo(ActionEvent event) throws SQLException{
 		
 		//System.out.println("Balise A");
@@ -262,44 +278,46 @@ public class GerantController extends MainController {
 		String idUtilisateur_concerne = idUtilisateur.getCellData(index).toString();
 		String sql = "UPDATE utilisateur SET nom = ? ,prenom = ? ,email = ?, telephone = ?, idAdresse = ? WHERE idUtilisateur = ?";
 		 
-		 PreparedStatement stat = conn.prepareStatement(sql);
+		PreparedStatement stat = conn.prepareStatement(sql);
 	     
-		 //System.out.println("Balise B");
+		//System.out.println("Balise B");
 		 
-		 stat.setString(1, input_nom.getText().toString());
-		 stat.setString(2, input_prenom.getText().toString());
-		 stat.setString(3, input_email.getText().toString());
-		 stat.setString(4, input_telephone.getText().toString());
-		 stat.setString(5, input_adresse.getText().toString());
-		 stat.setInt(6, Integer.valueOf(idUtilisateur_concerne));
-	     stat.executeUpdate();
-	     client_table.getItems().clear();
-	     print_clients(event);
+		stat.setString(1, input_nom.getText().toString());
+		stat.setString(2, input_prenom.getText().toString());
+		stat.setString(3, input_email.getText().toString());
+		stat.setString(4, input_telephone.getText().toString());
+		stat.setString(5, input_adresse.getText().toString());
+		stat.setInt(6, Integer.valueOf(idUtilisateur_concerne));
+	    stat.executeUpdate();
+	    
 	}
 	
-	
 	public void updateVehiculeInfo(ActionEvent event) throws SQLException{
-		
 		//System.out.println("Balise A");
 		int index = vehicule_table.getSelectionModel().getSelectedIndex();
 		String matricule_concerne = matricule.getCellData(index).toString();
 		String sql = "UPDATE vehicule SET matricule = ? ,marque = ? ,modele = ?, kilometrage = ?, climatisation = ?, typeBoiteDeVitesse = ?, type = ?  WHERE matricule = ?";
 		 
-		 PreparedStatement stat = conn.prepareStatement(sql);
-	     
-		 //System.out.println("Balise B");
+		PreparedStatement stat = conn.prepareStatement(sql);
 		 
-		 stat.setString(1, input_v_matricule.getText().toString());
-		 stat.setString(2, input_v_marque.getText().toString());
-		 stat.setString(3, input_v_modele.getText().toString());
-		 stat.setInt(4, Integer.valueOf(input_v_kilometrage.getText().toString()));
-		 stat.setBoolean(5, Boolean.valueOf(input_v_climatisation.getText().toString()));
-		 stat.setString(6, input_v_BoiteDeVitesse.getText().toString());
-		 stat.setString(7, input_v_type.getText().toString());
-		 stat.setString(8, String.valueOf(matricule_concerne));
-	     stat.executeUpdate();
-	     vehicule_table.getItems().clear();
-	     print_vehicules(event);
+		//System.out.println("Balise B");
+		 
+		stat.setString(1, input_v_matricule.getText().toString());
+		stat.setString(2, input_v_marque.getText().toString());
+		stat.setString(3, input_v_modele.getText().toString());
+		stat.setInt(4, Integer.valueOf(input_v_kilometrage.getText().toString()));
+		stat.setBoolean(5, Boolean.valueOf(input_v_climatisation.getText().toString()));
+		stat.setString(6, input_v_BoiteDeVitesse.getText().toString());
+		stat.setString(7, input_v_type.getText().toString());
+		stat.setString(8, String.valueOf(matricule_concerne));
+		stat.executeUpdate();
+		
+		try {
+			vehicule_table.getItems().clear();
+			print_vehicules(event);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -315,10 +333,13 @@ public class GerantController extends MainController {
 	@FXML private TableColumn<Vehicule, Boolean> climatisation;
 	@FXML private TableColumn<Vehicule, String> typeBoiteDeVitesse;
 	@FXML private TableColumn<Vehicule, String> type;
-	public ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
-	@FXML
+	
+	ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
 	public void print_vehicules(ActionEvent event) throws SQLException {
-		vehicule_table.getItems().clear();
+		print_vehicules();
+	}
+	
+	public void print_vehicules() throws SQLException {
         String sql = "Select * FROM vehicule";
         PreparedStatement stat = conn.prepareStatement(sql);
         ResultSet rs = stat.executeQuery();
@@ -340,7 +361,6 @@ public class GerantController extends MainController {
 	
 	@FXML TextField input_marque_recherche = new TextField();
 	public void print_vehicules_par_marque(ActionEvent event) throws SQLException {
-		vehicule_table.getItems().clear();
         String sql = "Select * FROM vehicule where marque = ?";
 	     
         PreparedStatement stat = conn.prepareStatement(sql);
@@ -363,7 +383,6 @@ public class GerantController extends MainController {
 	}
 
 	public void print_vehicule_loue(ActionEvent event) throws SQLException{
-		vehicule_table.getItems().clear();
         String sql = "Select * FROM vehicule where matricule in (SELECT matricule FROM loue)";
         PreparedStatement stat = conn.prepareStatement(sql);
         ResultSet rs = stat.executeQuery();
@@ -383,20 +402,17 @@ public class GerantController extends MainController {
 		vehicule_table.setItems(vehicules);
 	}
 	
-	@FXML
-	public void go_to_gestion_vehicule(ActionEvent event) throws IOException {
-		
+	@FXML public void go_to_gestion_vehicule(ActionEvent event) throws IOException {
+		actualscene = "gestionVehicule";
 		Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea_gestionVehicule.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		
 	}
 	
-	@FXML
-	public void go_to_gestion_finance(ActionEvent event) throws IOException {
-		
+	@FXML public void go_to_gestion_finance(ActionEvent event) throws IOException {
+		actualscene = "gestionFinance";
 		Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea_gestionFinance.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
@@ -405,9 +421,8 @@ public class GerantController extends MainController {
 		
 	}
 	
-	@FXML
-	public void go_to_gestion_client(ActionEvent event) throws IOException {
-		
+	@FXML public void go_to_gestion_client(ActionEvent event) throws IOException {
+		actualscene = "gestionClient";
 		Parent root = FXMLLoader.load(getClass().getResource("/view/GerantArea_gestionClient.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
