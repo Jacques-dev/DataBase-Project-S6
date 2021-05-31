@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="784.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GerantController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="788.0" prefWidth="1147.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GerantController">
    <children>
-      <Button layoutX="974.0" layoutY="-5.0" mnemonicParsing="false" onAction="#goHome" prefHeight="65.0" prefWidth="119.0" text="Deconnexion" />
+      <Button layoutX="1028.0" mnemonicParsing="false" onAction="#goHome" prefHeight="65.0" prefWidth="119.0" text="Deconnexion" />
       <Label layoutX="487.0" layoutY="27.0" text="Gestion Véhicule">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -22,7 +22,7 @@
             <Font name="System Bold Italic" size="17.0" />
          </font>
       </Label>
-      <TableView fx:id="vehicule_table" layoutY="92.0" onMouseClicked="#getSelected_v" prefHeight="269.0" prefWidth="773.0">
+      <TableView fx:id="vehicule_table" layoutY="92.0" onMouseClicked="#getSelected_v" prefHeight="269.0" prefWidth="849.0">
         <columns>
           <TableColumn fx:id="matricule" prefWidth="117.0" text="matricule" />
           <TableColumn fx:id="marque" prefWidth="117.0" text="marque" />
@@ -31,12 +31,13 @@
             <TableColumn fx:id="climatisation" prefWidth="117.0" text="climatisation" />
             <TableColumn fx:id="typeBoiteDeVitesse" prefWidth="112.0" text="boite de vitesse" />
             <TableColumn fx:id="type" prefWidth="106.0" text="type" />
+            <TableColumn fx:id="idAgence_v" prefWidth="75.0" text="idAgence" />
         </columns>
       </TableView>
-      <Button layoutX="896.0" layoutY="214.0" mnemonicParsing="false" onAction="#print_vehicules_par_marque" text="Recherche" />
-      <TextField fx:id="input_marque_recherche" layoutX="857.0" layoutY="179.0" promptText="Recherche par marque" />
-      <Button layoutX="813.0" layoutY="275.0" mnemonicParsing="false" onAction="#print_vehicule_loue" text="Afficher les véhicules en cours de location" />
-      <Label layoutX="39.0" layoutY="386.0" prefHeight="27.0" prefWidth="135.0" text="Ajouter un véhicule">
+      <Button layoutX="950.0" layoutY="347.0" mnemonicParsing="false" onAction="#print_vehicules_par_marque" text="Recherche" />
+      <TextField fx:id="input_marque_recherche" layoutX="876.0" layoutY="309.0" promptText="Recherche par marque" />
+      <Button layoutX="865.0" layoutY="394.0" mnemonicParsing="false" onAction="#print_vehicule_loue" prefHeight="44.0" prefWidth="241.0" text="Afficher les véhicules en cours de location" />
+      <Label layoutX="41.0" layoutY="373.0" prefHeight="27.0" prefWidth="135.0" text="Ajouter un véhicule">
          <font>
             <Font name="System Italic" size="16.0" />
          </font>
@@ -51,28 +52,29 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <TextField fx:id="input_v_matricule" layoutX="27.0" layoutY="444.0" promptText="matricule" />
-      <TextField fx:id="input_v_modele" layoutX="27.0" layoutY="526.0" promptText="modele" />
-      <TextField fx:id="input_v_kilometrage" layoutX="27.0" layoutY="570.0" promptText="kilometrage" />
-      <TextField fx:id="input_v_climatisation" layoutX="27.0" layoutY="611.0" promptText="climatisation" />
-      <TextField fx:id="input_v_BoiteDeVitesse" layoutX="27.0" layoutY="650.0" promptText="boite de vitesse" />
-      <TextField fx:id="input_v_marque" layoutX="27.0" layoutY="484.0" promptText="marque" />
-      <TextField fx:id="input_v_type" layoutX="27.0" layoutY="689.0" promptText="type" />
+      <TextField fx:id="input_v_matricule" layoutX="27.0" layoutY="416.0" promptText="matricule" />
+      <TextField fx:id="input_v_modele" layoutX="27.0" layoutY="485.0" promptText="modele" />
+      <TextField fx:id="input_v_kilometrage" layoutX="27.0" layoutY="521.0" promptText="kilometrage" />
+      <TextField fx:id="input_v_climatisation" layoutX="27.0" layoutY="559.0" promptText="climatisation" />
+      <TextField fx:id="input_v_BoiteDeVitesse" layoutX="27.0" layoutY="597.0" promptText="boite de vitesse" />
+      <TextField fx:id="input_v_marque" layoutX="27.0" layoutY="454.0" promptText="marque" />
+      <TextField fx:id="input_v_type" layoutX="27.0" layoutY="633.0" promptText="type" />
       <Button layoutX="27.0" layoutY="731.0" mnemonicParsing="false" onAction="#addButtonClicked_vehicule" prefHeight="35.0" prefWidth="149.0" text="Ajouter" />
       <Button layoutX="285.0" layoutY="411.0" mnemonicParsing="false" onAction="#updateVehiculeInfo" prefHeight="35.0" prefWidth="149.0" text="Modifier" />
       <Separator layoutX="205.0" layoutY="360.0" orientation="VERTICAL" prefHeight="425.0" prefWidth="16.0" />
       <Separator layoutX="487.0" layoutY="359.0" orientation="VERTICAL" prefHeight="425.0" prefWidth="0.0" />
-      <Separator layoutX="771.0" layoutY="341.0" orientation="VERTICAL" prefHeight="449.0" prefWidth="6.0" />
-      <Label layoutX="839.0" layoutY="110.0" text="Recherche appronfondie">
+      <Separator layoutX="846.0" layoutY="335.0" orientation="VERTICAL" prefHeight="449.0" prefWidth="6.0" />
+      <Label layoutX="882.0" layoutY="257.0" text="Recherche appronfondie">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_client" prefHeight="27.0" prefWidth="127.0" text="Gestion Client" />
-      <Button layoutX="160.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_vehicule" prefHeight="27.0" prefWidth="127.0" text="Gestion Véhicule" />
-      <Button layoutX="307.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_finance" prefHeight="27.0" prefWidth="127.0" text="Gestion Finance" />
+      <Button layoutX="312.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_facture" prefHeight="27.0" prefWidth="127.0" text="Gestion Facture" />
+      <Button layoutX="158.0" layoutY="52.0" mnemonicParsing="false" onAction="#go_to_gestion_finance" prefHeight="27.0" prefWidth="127.0" text="Gestion Finance" />
       <Button layoutX="312.0" layoutY="516.0" mnemonicParsing="false" onAction="#deleteButtonClicked_v" prefHeight="35.0" prefWidth="96.0" text="Supprimer" />
       <Button layoutX="591.0" layoutY="429.0" mnemonicParsing="false" onAction="#print_vehicules" text="Afficher tous les véhicules" />
       <Label fx:id="lbletat" layoutX="763.0" layoutY="32.0" prefHeight="17.0" prefWidth="198.0" textFill="RED" />
+      <TextField fx:id="input_v_idAgence" layoutX="27.0" layoutY="675.0" promptText="id Agence" />
    </children>
 </Pane>

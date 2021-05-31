@@ -9,9 +9,19 @@ public class Vehicule {
 	private boolean climatisation;
 	private String typeBoiteDeVitesse;
 	private String type;
-	
+	private int idAgence;
+
+	public int getIdAgence() {
+		return idAgence;
+	}
+
+	public void setIdAgence(int idAgence) {
+		this.idAgence = idAgence;
+	}
+
 	public Vehicule(String matricule, String marque, String modele, int kilometrage, boolean climatisation,
-			String typeBoiteDeVitesse, String type) {
+			String typeBoiteDeVitesse, String type, int idAgence) {
+		super();
 		this.matricule = matricule;
 		this.marque = marque;
 		this.modele = modele;
@@ -19,6 +29,7 @@ public class Vehicule {
 		this.climatisation = climatisation;
 		this.typeBoiteDeVitesse = typeBoiteDeVitesse;
 		this.type = type;
+		this.idAgence = idAgence;
 	}
 
 	public String getMatricule() {
