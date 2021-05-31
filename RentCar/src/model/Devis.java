@@ -7,6 +7,16 @@ public class Devis {
 	private int durreePrevueLocation;
 	private int idAgence;
 	private int idUtilisateur;
+	private boolean assurance;
+	
+	public boolean getAssurance() {
+		return assurance;
+	}
+
+	public void setAssurance(boolean assurance) {
+		this.assurance = assurance;
+	}
+
 	private String matricule;
 	
 	public Devis(int idDevis, float montantReduction, int durreePrevueLocation, int idAgence, int idUtilisateur, String matricule) {
@@ -77,8 +87,8 @@ public class Devis {
 	@Override
 	public String toString() {
 		return "Devis [idDevis=" + idDevis + ", montantReduction=" + montantReduction + ", durreePrevueLocation="
-				+ durreePrevueLocation + ", idAgence=" + idAgence + ", idUtilisateur=" + idUtilisateur + ", matricule="
-				+ matricule + "]";
+				+ durreePrevueLocation + ", idAgence=" + idAgence + ", idUtilisateur=" + idUtilisateur + ", assurance="
+				+ assurance + ", matricule=" + matricule + "]";
 	}
 	
 	

@@ -41,7 +41,7 @@
       </TableView>
       <TextField fx:id="input_matricule" layoutX="93.0" layoutY="70.0" promptText="matricule" />
       <Button layoutX="882.0" layoutY="114.0" mnemonicParsing="false" onAction="#reserve" text="Réserver" />
-      <Button layoutX="876.0" layoutY="74.0" mnemonicParsing="false" onAction="#loue" text="Louer" />
+      <Button layoutX="876.0" layoutY="74.0" mnemonicParsing="false" onAction="#loue" text="Afficher le devis" />
       <CheckBox fx:id="input_assurance" layoutX="550.0" layoutY="78.0" mnemonicParsing="false" text="Assurance" />
       <TextField fx:id="input_duree" layoutX="689.0" layoutY="74.0" prefHeight="25.0" prefWidth="114.0" promptText="durée de location" />
       <TextField fx:id="filterField" layoutX="776.0" layoutY="154.0" prefHeight="25.0" prefWidth="226.0" promptText="Rechercher client" />

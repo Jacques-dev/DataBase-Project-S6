@@ -277,7 +277,7 @@ public class ClientController extends MainController implements Initializable {
 		 
 		devis = new Devis(montantReduction, duree, 1, idUtilisateur, matricule); 
  
-		printDevis(); 
+		printDevis();
 	} 
 	 
 	private static Facture facture; 
@@ -331,25 +331,11 @@ public class ClientController extends MainController implements Initializable {
 	} 
 	 
 	@FXML public void loue(ActionEvent event) { 
-		 
-		String sql = ("INSERT INTO loue (matricule, idUtilisateur, assurance, duree, datePriseDeReservation) VALUES (?, ?, ?, ?, ?)"); 
-		 
-		try { 
-			PreparedStatement pst = conn.prepareStatement(sql); 
-			 
-			pst.setString(1, input_matricule.getText().toString()); 
-			pst.setInt(2, Integer.valueOf(input_idUtilisateur.getText().toString())); 
-			pst.setBoolean(3, input_assurance.isSelected()); 
-			pst.setInt(4, Integer.valueOf(input_duree.getText().toString())); 
-			pst.setString(5, java.time.LocalDate.now().toString()); 
-			 
-	        pst.executeUpdate(); 
-	         
-			lbletat.setText("Location enregistr�"); 
-			 
+		   
+		try { 	 
 	        createDevis(Integer.valueOf(input_duree.getText().toString())); 
 		} catch(Exception e) { 
-			lbletat.setText("Location erreur"); 
+			
 		} 
 		 
 		try { 
@@ -358,8 +344,34 @@ public class ClientController extends MainController implements Initializable {
 		} catch (SQLException e) { 
 			e.printStackTrace(); 
 		} 
-	} 
- 
+	}
+	
+	@FXML public void loue_sur_le_devis(ActionEvent event) {
+		System.out.println("pouet");
+		 
+		String sql = ("INSERT INTO loue (matricule, idUtilisateur, assurance, duree, datePriseDeReservation) VALUES (?, ?, ?, ?, ?)"); 
+		 
+		try { 
+			PreparedStatement pst = conn.prepareStatement(sql); 
+			System.out.println("A");
+			pst.setString(1, lbl_matricule.getText().toString()); 
+			System.out.println("B");
+			pst.setInt(2, Integer.valueOf(lbl_idUtilisateur.getText().toString())); 
+			System.out.println("C");
+			pst.setInt(3, 0); 
+			System.out.println("D");
+			pst.setInt(4, Integer.valueOf(lbl_dureePrevueDeLocation.getText().toString())); 
+			System.out.println("E");
+			pst.setString(5, java.time.LocalDate.now().toString()); 
+			 System.out.println(pst);
+	        pst.executeUpdate(); 
+	        lbletat.setText("Location enregistré"); 
+	         
+		} catch(Exception e) { 
+			lbletat.setText("Location erreur"); 
+		} 
+	}
+	
 	@FXML public void reserve(ActionEvent event) { 
 		vehiculeTable.getItems().clear(); 
 		String sql = "INSERT INTO reserve (matricule, idUtilisateur, dateReservation, datePriseDeReservation) VALUES (?, ?, ?, ?)"; 

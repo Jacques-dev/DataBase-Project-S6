@@ -2,11 +2,84 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChauffeurController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="749.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChauffeurController">
    <children>
-      <Button layoutX="857.0" mnemonicParsing="false" onAction="#goHome" prefHeight="58.0" prefWidth="98.0" text="deconnexion" />
-      <Label layoutX="22.0" layoutY="21.0" text="Chauffeur" />
+      <Button layoutX="987.0" layoutY="1.0" mnemonicParsing="false" onAction="#goHome" prefHeight="58.0" prefWidth="98.0" text="deconnexion" />
+      <Label layoutX="22.0" layoutY="21.0" text="Chauffeur">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font></Label>
+      <Label layoutX="323.0" layoutY="128.0" text="Liste des véhicules">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="421.0" layoutY="50.0" text="Gestion des véhicules">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="813.0" layoutY="366.0" text="Agence" />
+      <Label layoutX="810.0" layoutY="321.0" text="Modele :" />
+      <Label layoutX="809.0" layoutY="280.0" text="Marque :" />
+      <Label layoutX="805.0" layoutY="239.0" text="Matricule :" />
+      <Label layoutX="364.0" layoutY="477.0" text="Liste des circuits">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="904.0" layoutY="506.0" text="Agence de départ" />
+      <Label layoutX="906.0" layoutY="562.0" text="Agence d'arrivé" />
+      <TextField fx:id="input_nouvelleAgence" layoutX="877.0" layoutY="362.0" />
+      <TextField fx:id="input_AgenceArrivee" layoutX="871.0" layoutY="586.0" prefHeight="25.0" prefWidth="171.0" promptText="id agence arrivé" />
+      <TextField fx:id="input_AgenceDepart" layoutX="871.0" layoutY="529.0" prefHeight="25.0" prefWidth="171.0" promptText="id agence départ" />
+      <TableView fx:id="circuit_table" layoutX="3.0" layoutY="514.0" prefHeight="218.0" prefWidth="770.0">
+        <columns>
+          <TableColumn fx:id="id_circuit" prefWidth="75.0" text="id Circuit" />
+          <TableColumn fx:id="id_AgenceDepart" prefWidth="111.0" text="id Agence départ" />
+            <TableColumn fx:id="id_AgenceArrivee" prefWidth="113.0" text="id Agence arrivée" />
+            <TableColumn fx:id="chemin_a" prefWidth="148.0" text="Chemin A" />
+            <TableColumn fx:id="chemin_b" prefWidth="165.0" text="Chemin B" />
+            <TableColumn fx:id="chemin_c" prefWidth="164.0" text="Chemin C" />
+        </columns>
+      </TableView>
+      <TableView fx:id="vehicule_table" layoutX="4.0" layoutY="166.0" onMouseClicked="#getSelected_v" prefHeight="297.0" prefWidth="770.0">
+        <columns>
+          <TableColumn fx:id="matricule" prefWidth="75.0" text="matricule" />
+          <TableColumn fx:id="marque" prefWidth="75.0" text="marque" />
+            <TableColumn fx:id="modele" prefWidth="75.0" text="modele" />
+            <TableColumn fx:id="kilometrage" prefWidth="75.0" text="kilometrage" />
+            <TableColumn fx:id="climatisation" prefWidth="106.0" text="climatisation" />
+            <TableColumn fx:id="typeBoiteDeVitesse" prefWidth="118.0" text="boite de vitesse" />
+            <TableColumn fx:id="type" prefWidth="120.0" text="type" />
+            <TableColumn fx:id="idAgence_v" prefWidth="120.0" text="id Agence" />
+        </columns>
+      </TableView>
+      <Button layoutX="871.0" layoutY="623.0" mnemonicParsing="false" onAction="#research_circuit_between_a_b" prefHeight="43.0" prefWidth="171.0" text="Afficher les circuits concerné" />
+      <Button layoutX="867.0" layoutY="420.0" mnemonicParsing="false" onAction="#updateVehiculeInfo" prefHeight="43.0" prefWidth="128.0" text="Deplacer le véhicule" />
+      <Label fx:id="lbl_matricule" layoutX="890.0" layoutY="239.0">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label fx:id="lbl_marque" layoutX="890.0" layoutY="280.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label fx:id="lbl_modele" layoutX="890.0" layoutY="321.0">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="862.0" layoutY="174.0" text="Deplacer un véhicule">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button layoutX="814.0" layoutY="682.0" mnemonicParsing="false" onAction="#print_circuits" prefHeight="43.0" prefWidth="235.0" text="Afficher tous les circuits" />
    </children>
 </Pane>

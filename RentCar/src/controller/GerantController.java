@@ -84,14 +84,13 @@ public class GerantController extends MainController implements Initializable {
 		System.out.println(stat);
 	    ResultSet rs = stat.executeQuery();
 	    while(rs.next()) {
-	    	System.out.println("tarf = " + rs.getInt(3) +" / caution = " + rs.getInt(4) +" / dureeEffective = "+ rs.getInt(5)+" / frais_remise = "+ rs.getInt(6) +" / taux de reduction = "+ rs.getFloat(7) );
+	    	//System.out.println("tarf = " + rs.getInt(3) +" / caution = " + rs.getInt(4) +" / dureeEffective = "+ rs.getInt(5)+" / frais_remise = "+ rs.getInt(6) +" / taux de reduction = "+ rs.getFloat(7) );
 	    	tarif = Float.valueOf(rs.getInt(3));
 	    	duree_effective = Float.valueOf(rs.getInt(5));
 	    	frais_remise = Float.valueOf(rs.getInt(6));
 	    	taux_reduction = Float.valueOf(rs.getInt(7));
 	    	tarif_total += (tarif*duree_effective + frais_remise)*(1 - taux_reduction);
-	    	System.out.println(tarif_total);
-	    	
+	    	//System.out.println(tarif_total);
 	    }
 	    recette.setText(String.valueOf(tarif_total));
 	    
@@ -607,6 +606,5 @@ public class GerantController extends MainController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
 	
 }
