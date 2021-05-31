@@ -11,14 +11,6 @@ public class Vehicule {
 	private String type;
 	private int idAgence;
 
-	public int getIdAgence() {
-		return idAgence;
-	}
-
-	public void setIdAgence(int idAgence) {
-		this.idAgence = idAgence;
-	}
-
 	public Vehicule(String matricule, String marque, String modele, int kilometrage, boolean climatisation,
 			String typeBoiteDeVitesse, String type, int idAgence) {
 		super();
@@ -86,6 +78,14 @@ public class Vehicule {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public int getIdAgence() {
+		return idAgence;
+	}
+
+	public void setIdAgence(int idAgence) {
+		this.idAgence = idAgence;
 	}
 
 	@Override
