@@ -67,7 +67,11 @@ public class GerantController extends MainController implements Initializable {
 		//String dateB = input_dateB.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
 		String dateA = "2010-04-02";
 		String dateB = "2022-05-30";
-	
+		float tarif = 0;
+		float duree_effective; 
+		float frais_remise = 0;
+		float taux_reduction = 0;
+		float tarif_total = 0;
 		
 		String sql_r ="SELECT idUtilisateur, matricule, tarif, caution, dureeEffective, frais_remise, tauxReduction, datePriseDeReservation FROM vehicule NATURAL JOIN categorievehicule NATURAL JOIN loue NATURAL JOIN facture NATURAL JOIN souscrire WHERE datePriseDeReservation BETWEEN ? AND ? ";
 		
@@ -79,11 +83,16 @@ public class GerantController extends MainController implements Initializable {
 		System.out.println(stat);
 	    ResultSet rs = stat.executeQuery();
 	    while(rs.next()) {
-	    	System.out.println(rs.getInt(3) +" / " + rs.getInt(4) +" / "+ rs.getInt(5)+" / "+ rs.getInt(6) +" / "+ rs.getFloat(7) );
-        }
-	}
-	
-	
+	    	System.out.println("tarf = " + rs.getInt(3) +" / caution = " + rs.getInt(4) +" / dureeEffective = "+ rs.getInt(5)+" / frais_remise = "+ rs.getInt(6) +" / taux de reduction = "+ rs.getFloat(7) );
+	    	tarif = Float.valueOf(rs.getInt(3));
+	    	duree_effective = Float.valueOf(rs.getInt(5));
+	    	frais_remise = Float.valueOf(rs.getInt(6));
+	    	taux_reduction = Float.valueOf(rs.getInt(7));
+	    	tarif_total += (tarif*duree_effective + frais_remise)*(1 - taux_reduction);
+	    	System.out.println(tarif_total);
+	    	
+	    }
+	}	
 	
 //-------------------------------------------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------GESTION Facture -------------------------------------------------//
@@ -350,6 +359,26 @@ public class GerantController extends MainController implements Initializable {
 		input_email.setText(email.getCellData(index).toString());
 		input_telephone.setText(telephone.getCellData(index).toString());
 		input_adresse.setText(idAdresse.getCellData(index).toString());
+	}
+	
+	public void print_clients_non_loueur(ActionEvent event) throws SQLException{
+		client_table.getItems().clear();
+        String sql = "SELECT utilisateur.* FROM utilisateur NATURAL JOIN client WHERE utilisateur.idUtilisateur not in (SELECT idUtilisateur from loue) ";
+        PreparedStatement stat = conn.prepareStatement(sql);
+        ResultSet rs = stat.executeQuery();
+        
+        while(rs.next()) {
+        	clients.add(new Utilisateur(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+        }
+        
+        idUtilisateur.setCellValueFactory(new PropertyValueFactory<Utilisateur, Integer>("id")); 
+		nom.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("nom"));
+		prenom.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("prenom"));
+		email.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("email"));
+		telephone.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("telephone"));
+		idAdresse.setCellValueFactory(new PropertyValueFactory<Utilisateur, String>("idAdresse"));
+		
+		client_table.setItems(clients);
 	}
 	
 //-------------------------------------------------------------------------------------------------------------------------------//

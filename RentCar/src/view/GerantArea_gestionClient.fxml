@@ -78,7 +78,7 @@
       <Button layoutX="38.0" layoutY="57.0" mnemonicParsing="false" onAction="#go_to_gestion_vehicule" prefHeight="27.0" prefWidth="113.0" text="Gestion Véhicule" />
       <Button layoutX="174.0" layoutY="57.0" mnemonicParsing="false" onAction="#go_to_gestion_finance" prefHeight="27.0" prefWidth="113.0" text="Gestion Finance" />
       <Label fx:id="lbletat" layoutX="711.0" layoutY="24.0" prefHeight="17.0" prefWidth="198.0" textFill="RED" />
-      <Button layoutX="14.0" layoutY="608.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="211.0" text="Clients n'ayant jamais loué" />
+      <Button layoutX="14.0" layoutY="608.0" mnemonicParsing="false" onAction="#print_clients_non_loueur" prefHeight="38.0" prefWidth="211.0" text="Clients n'ayant jamais loué" />
       <Button layoutX="318.0" layoutY="57.0" mnemonicParsing="false" onAction="#go_to_gestion_facture" prefHeight="27.0" prefWidth="113.0" text="Gestion facture" />
    </children>
 </Pane>
