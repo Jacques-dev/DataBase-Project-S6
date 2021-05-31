@@ -319,6 +319,8 @@ public class ClientController extends MainController implements Initializable {
 	
 	
 	
+	
+	
 	public void goToClientLocationArea(ActionEvent event) throws IOException, SQLException {
 		actualscene = "ClientLocationArea";
 		Parent root = FXMLLoader.load(getClass().getResource("/view/ClientLocationArea.fxml"));
@@ -358,7 +360,6 @@ public class ClientController extends MainController implements Initializable {
 		//vehicule = vehiculeTable.getSelectionModel().getSelectedItems();
 		input_idUtilisateur.setText(idUtilisateur.getCellData(index).toString());
 	}
-	
 	public void getSelected_id_program(MouseEvent event) throws IOException{
 		int index = programFideliteTable.getSelectionModel().getSelectedIndex();
 		//vehicule = vehiculeTable.getSelectionModel().getSelectedItems();

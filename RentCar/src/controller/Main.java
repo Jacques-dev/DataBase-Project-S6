@@ -39,7 +39,7 @@ public class Main extends Application {
 			System.out.println("Connected to database");
 			return conn;
 		} catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		  
 		return null;

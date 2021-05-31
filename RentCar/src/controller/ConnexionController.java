@@ -34,25 +34,23 @@ public class ConnexionController extends MainController {
 			stat.setString(1, identifiant.getText().toString());
 			stat.setString(2, mot_de_passe.getText().toString());
 			rs = stat.executeQuery();
-
+			
 			if (rs.next()) {
 				goToGerantAreaClient(event);
-			} 
-		} catch(Exception e) {
-			
-		}
-		
-		try {
-			stat = conn.prepareStatement(sql_chauffeur);
-			stat.setString(1, identifiant.getText().toString());
-			stat.setString(2, mot_de_passe.getText().toString());
-			rs = stat.executeQuery();
-			if (rs.next()) {
-				goToChauffeurArea(event);
-	
+			} else {
+				stat = conn.prepareStatement(sql_chauffeur);
+				stat.setString(1, identifiant.getText().toString());
+				stat.setString(2, mot_de_passe.getText().toString());
+				rs = stat.executeQuery();
+				
+				if (rs.next()) {
+					goToChauffeurArea(event);
+				} else {
+					lbletat.setText("Identification ou mot de passe incorrects");
+				}
 			}
 		} catch(Exception e) {
-			
+			e.printStackTrace();
 		}
 		
 	}

@@ -34,11 +34,13 @@
          </columns>
       </TableView>
       <Button layoutX="850.0" layoutY="94.0" mnemonicParsing="false" onAction="#souscrit" text="souscrire" />
-      <Label fx:id="lbletat" layoutX="437.0" layoutY="141.0" prefHeight="17.0" prefWidth="126.0" />
-      <TextField fx:id="input_idProgramFidelite" layoutX="314.0" layoutY="94.0" promptText="num programme fidélité" />
-      <TextField fx:id="input_idUtilisateur" layoutX="484.0" layoutY="94.0" promptText="idUtilisateur" />
+      <TextField fx:id="input_idProgramFidelite" layoutX="164.0" layoutY="94.0" promptText="num programme fidélité" />
+      <TextField fx:id="input_idUtilisateur" layoutX="414.0" layoutY="94.0" promptText="num client" />
       <CheckBox fx:id="input_tauxReduction" layoutX="646.0" layoutY="98.0" mnemonicParsing="false" text="déjà souscrit ?" />
       <TextField fx:id="filterField" layoutX="683.0" layoutY="149.0" prefHeight="25.0" prefWidth="220.0" promptText="Rechercher client" />
       <Button layoutX="250.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToClientRetourArea" text="Faire un retour de location" />
+      <Label layoutX="25.0" layoutY="98.0" text="Num Programme fidélité : " />
+      <Label layoutX="348.0" layoutY="98.0" text="Num Client : " />
+      <Label fx:id="lbletat" layoutX="571.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" textFill="RED" />
    </children>
 </Pane>

@@ -20,12 +20,12 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button layoutX="90.0" layoutY="167.0" mnemonicParsing="false" onAction="#goToConnexionArea" text="Je suis un employé" />
+                  <Button layoutX="104.0" layoutY="159.0" mnemonicParsing="false" onAction="#goToConnexionArea" text="Me connecter" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button layoutX="99.0" layoutY="167.0" mnemonicParsing="false" onAction="#goToClientArea" text="Je suis un client" />
+                  <Button layoutX="64.0" layoutY="159.0" mnemonicParsing="false" onAction="#goToClientArea" text="Location/Réservation/Retour" />
                </children>
             </AnchorPane>
         </items>

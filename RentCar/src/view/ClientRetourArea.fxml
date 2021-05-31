@@ -30,7 +30,7 @@
       </TableView>
       <Button layoutX="64.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToClientFideliteArea" text="Adhérer à un programme de fidélité" />
       <Button layoutX="-1.0" layoutY="2.0" mnemonicParsing="false" onAction="#goHome" text="Retour" />
-      <TextField fx:id="input_idUtilisateur" layoutX="388.0" layoutY="94.0" promptText="num client" />
+      <TextField fx:id="input_idUtilisateur" layoutX="338.0" layoutY="94.0" promptText="num client" />
       <TableView fx:id="clientTable" layoutX="682.0" layoutY="193.0" onMouseClicked="#getSelected_id_loueur" prefHeight="396.0" prefWidth="226.0">
          <columns>
             <TableColumn fx:id="idUtilisateur" prefWidth="75.0" text="num client" />
@@ -38,15 +38,17 @@
             <TableColumn fx:id="prenom" prefWidth="75.0" text="prenom" />
          </columns>
       </TableView>
-      <TextField fx:id="input_matricule" layoutX="236.0" layoutY="94.0" promptText="matricule" />
+      <TextField fx:id="input_matricule" layoutX="110.0" layoutY="94.0" promptText="matricule" />
       <Button layoutX="839.0" layoutY="94.0" mnemonicParsing="false" onAction="#retourne" text="Retourner" />
       <TextField fx:id="filterField" layoutX="682.0" layoutY="154.0" prefHeight="25.0" prefWidth="226.0" promptText="Rechercher client" />
-      <Label fx:id="lbletat" layoutX="428.0" layoutY="146.0" prefHeight="17.0" prefWidth="97.0" />
-      <DatePicker fx:id="input_date" layoutX="544.0" layoutY="94.0" prefHeight="25.0" prefWidth="114.0" />
+      <DatePicker fx:id="input_date" layoutX="501.0" layoutY="94.0" prefHeight="25.0" prefWidth="149.0" promptText="date de retour" />
       <Button layoutX="283.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToClientLocationArea" prefHeight="25.0" prefWidth="207.0" text="Faire une location / réservation" />
       <ChoiceBox fx:id="input_etat" layoutX="799.0" layoutY="94.0" prefHeight="25.0" prefWidth="34.0" />
       <Label layoutX="665.0" layoutY="98.0" text="Etat du véhicule : " />
       <Label fx:id="input_etat_label" layoutX="767.0" layoutY="98.0" prefHeight="17.0" prefWidth="25.0" />
+      <Label layoutX="51.0" layoutY="98.0" text="Matricule : " />
+      <Label layoutX="271.0" layoutY="98.0" text="Num client : " />
+      <Label fx:id="lbletat" layoutX="571.0" layoutY="29.0" prefHeight="17.0" prefWidth="114.0" textFill="RED" />
 	
    </children>
 </Pane>
