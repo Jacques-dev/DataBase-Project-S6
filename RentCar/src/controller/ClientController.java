@@ -462,15 +462,19 @@ public class ClientController extends MainController implements Initializable {
 			PreparedStatement pst = conn.prepareStatement(sql);
 			
 			pst.setInt(1, Integer.valueOf(input_idUtilisateur.getText().toString()));
+			System.out.println(pst);
 			pst.setInt(2, Integer.valueOf(input_idProgramFidelite.getText().toString()));
+			System.out.println(pst);
 			pst.setString(3, java.time.LocalDate.now().toString());
-			Integer i;
-			if (input_assurance.isSelected()) {
+			System.out.println(pst);
+			float i;
+			if (input_tauxReduction.isSelected()) {
 				i = 25;
 			} else {
 				i = 0;
 			}
-			pst.setInt(4, i);
+			pst.setFloat(4, i);
+			System.out.println(pst);
 
 			pst.executeUpdate();
 
