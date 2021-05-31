@@ -28,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.ProgramFidelite;
 import model.Utilisateur;
@@ -189,7 +190,8 @@ public class ClientController extends MainController implements Initializable {
 		
 		clientTable.setItems(clients);
 	}
-		
+
+
 	@FXML private TextField input_matricule;
 	@FXML private TextField input_idUtilisateur;
 	@FXML private CheckBox input_assurance;
@@ -212,7 +214,7 @@ public class ClientController extends MainController implements Initializable {
 	@FXML private Label lbletat;
 	
 	@FXML public void loue(ActionEvent event) {
-		vehiculeTable.getItems().clear();
+		
 		String sql = ("INSERT INTO loue (matricule, idUtilisateur, assurance, duree, datePriseDeReservation) VALUES (?, ?, ?, ?, ?)");
 		
 		try {
@@ -227,16 +229,27 @@ public class ClientController extends MainController implements Initializable {
 	        pst.executeUpdate();
 	        
 			lbletat.setText("Location enregistré");
+			
+			try {
+//				printDevis();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
 		} catch(Exception e) {
 			lbletat.setText("Location erreur");
 		}
 		try {
+			vehiculeTable.getItems().clear();
 			printVehicules();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	
+
 	@FXML public void reserve(ActionEvent event) {
 		vehiculeTable.getItems().clear();
 		String sql = "INSERT INTO reserve (matricule, idUtilisateur, dateReservation, datePriseDeReservation) VALUES (?, ?, ?, ?)";
@@ -266,7 +279,7 @@ public class ClientController extends MainController implements Initializable {
 	
 	@FXML public void retourne(ActionEvent event) {
 		vehiculeTable.getItems().clear();
-		String sql = "INSERT INTO retourne (matricule, idUtilisateur, date, etatOrigine) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO retour (matricule, idUtilisateur, date, etatOrigine) VALUES (?, ?, ?, ?)";
 		String sql2 = "DELETE FROM loue WHERE matricule = ? AND idUtilisateur = ?";
 
 		try {
@@ -276,19 +289,24 @@ public class ClientController extends MainController implements Initializable {
 			pst.setString(3, java.time.LocalDate.now().toString());
 			pst.setInt(4, Integer.valueOf(input_etat_label.getText().toString()));
 			
-			
-			PreparedStatement pst2 = conn.prepareStatement(sql2);
-			pst2.setString(1, input_matricule.getText().toString());
-			pst2.setInt(2, Integer.valueOf(input_idUtilisateur.getText().toString()));
-			
-			
-			pst2.executeUpdate();
 			pst.executeUpdate();
-
-			lbletat.setText("Retour enregistré");
+			
+			try {
+				PreparedStatement pst2 = conn.prepareStatement(sql2);
+				pst2.setString(1, input_matricule.getText().toString());
+				pst2.setInt(2, Integer.valueOf(input_idUtilisateur.getText().toString()));
+				
+				
+				pst2.executeUpdate();
+				
+				lbletat.setText("Retour enregistré");
+			} catch (SQLException e) {
+				lbletat.setText("Retour erreur (suppretion)");
+			}
 		} catch(Exception e) {
-			lbletat.setText("Retour erreur");
+			lbletat.setText("Retour erreur (insertion)");
 		}
+		
 		try {
 			printVehiculesLoue();
 		} catch (SQLException e) {
@@ -305,7 +323,13 @@ public class ClientController extends MainController implements Initializable {
 			pst.setInt(1, Integer.valueOf(input_idUtilisateur.getText().toString()));
 			pst.setInt(2, Integer.valueOf(input_idProgramFidelite.getText().toString()));
 			pst.setString(3, java.time.LocalDate.now().toString());
-			pst.setBoolean(4, Boolean.valueOf(input_tauxReduction.getText().toString()));
+			Integer i;
+			if (input_assurance.isSelected()) {
+				i = 25;
+			} else {
+				i = 0;
+			}
+			pst.setInt(4, i);
 
 			pst.executeUpdate();
 
@@ -319,7 +343,14 @@ public class ClientController extends MainController implements Initializable {
 	
 	
 	
-	
+	private void printDevis() throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/view/Devis.fxml"));
+		Stage newWindow = new Stage();
+		Scene scene = new Scene(root);
+		newWindow.setTitle("Devis");
+		newWindow.setScene(scene);
+		newWindow.show();
+	}
 	
 	public void goToClientLocationArea(ActionEvent event) throws IOException, SQLException {
 		actualscene = "ClientLocationArea";
