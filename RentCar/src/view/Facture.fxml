@@ -26,7 +26,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="77.0" layoutY="339.0" text="Frais de remise :  : " />
+      <Label layoutX="77.0" layoutY="339.0" text="Frais de remise :  " />
       <Label fx:id="lbl_fraisRemise" layoutX="254.0" layoutY="339.0" prefHeight="17.0" prefWidth="101.0" />
    </children>
 </Pane>

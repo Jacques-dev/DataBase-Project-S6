@@ -293,37 +293,33 @@ public class ClientController extends MainController implements Initializable {
 		newWindow.show();
 	}
 	
-	private void createFacture(int duree, String mat) throws IOException, SQLException {
-		String sql = "Select etatOrigine from loue where idUtilisateur = ? and matricule = ?";
+	private void createFacture(String dateOrigineLocation, String mat, int assurance, int frais_remise) throws IOException, SQLException {
+		
+        String sql = "INSERT INTO facture (dureeEffective, consomationCarburant, etatVehicule, idAgence, idUtilisateur, frais_remise) VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pst = conn.prepareStatement(sql);
-		pst.setInt(1, Integer.valueOf(input_idUtilisateur.getText().toString()));
-		pst.setString(2, mat);
-		ResultSet rs = pst.executeQuery();
-		System.out.println(rs);
-		int etatOrigine = 0;
-		if (rs.next()) {
-			etatOrigine = rs.getInt(1);
-		}
-		System.out.println(etatOrigine);
-		sql = "INSERT INTO facture (dureeEffective, consomationCarburant, etatVehicule, idAgence, idUtilisateur, frais_remise) VALUES (?, ?, ?, ?, ?, ?)";
-		pst = conn.prepareStatement(sql);
 		
 		int idUtilisateur = Integer.valueOf(input_idUtilisateur.getText().toString());
-		System.out.println(idUtilisateur);
+		float consomationCarburant = (float)(Math.random() * ( 50 - 10 ));
+		int etatOrigine = 5;
+		
+		int duree = 0;
+		String dateFinLocation = input_date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		int dfl = Integer.valueOf(dateFinLocation.split("-")[1]);
+		int dol = Integer.valueOf(dateOrigineLocation.split("-")[1]);
+		
+		duree = dfl - dol;
+		
 		pst.setInt(1, duree);
-		pst.setInt(2, (int)(Math.random() * ( 30 - 2 ))*1000);
+		pst.setFloat(2, consomationCarburant);
 		pst.setInt(3, etatOrigine);
 		pst.setInt(4, 1);
 		pst.setInt(5, idUtilisateur);
-		pst.setInt(6, (etatOrigine - (int)(Math.random() * ( 5 - 1 )) * 10));
-		System.out.println(pst);
+		pst.setInt(6, frais_remise);
+		
+		
 		pst.executeUpdate();
 		
-		float consomationCarburant = (float)(Math.random() * ( 30 - 2 ))*1000;
-		int frais_remise = (etatOrigine - (int)(Math.random() * ( 5 - 1 )) * 10);
-		
-		facture = new Facture(duree, consomationCarburant, etatOrigine, idUtilisateur, 1, frais_remise);
-		System.out.println(facture);
+		facture = new Facture(duree, consomationCarburant, etatOrigine, 1, idUtilisateur, frais_remise);
 		printFacture();
 	}
 	
@@ -384,16 +380,18 @@ public class ClientController extends MainController implements Initializable {
 		}
 	}
 	
-	@FXML public void retourne(ActionEvent event) {
+	@FXML public void retourne(ActionEvent event) throws IOException {
 		vehiculeTable.getItems().clear();
 		String sql = "INSERT INTO retour (matricule, idUtilisateur, date, etatOrigine) VALUES (?, ?, ?, ?)";
 		String sql2 = "DELETE FROM loue WHERE matricule = ? AND idUtilisateur = ?";
+		String dateOrigine = "";
 
 		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setString(1, input_matricule.getText().toString());
 			pst.setInt(2, Integer.valueOf(input_idUtilisateur.getText().toString()));
-			pst.setString(3, java.time.LocalDate.now().toString());
+			String date = input_date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			pst.setString(3, date.toString());
 			pst.setInt(4, Integer.valueOf(input_etat_label.getText().toString()));
 			
 			pst.executeUpdate();
@@ -403,38 +401,50 @@ public class ClientController extends MainController implements Initializable {
 				pst2.setString(1, input_matricule.getText().toString());
 				pst2.setInt(2, Integer.valueOf(input_idUtilisateur.getText().toString()));
 				
-				
-				pst2.executeUpdate();
-				
-				lbletat.setText("Retour enregistré");
-				
-				
-				
-				sql = "Select datePriseDeReservation from loue where idUtilisateur = ? and matricule = ?";
+				sql = "Select duree, datePriseDeReservation from loue where idUtilisateur = ? and matricule = ?";
 				pst = conn.prepareStatement(sql);
 				pst.setInt(1, Integer.valueOf(input_idUtilisateur.getText().toString()));
 				pst.setString(2, input_matricule.getText().toString());
 				ResultSet rs = pst.executeQuery();
-
-				int dateOrigine = 0;
+				
 				if (rs.next()) {
-					System.out.println(rs.getString(1));
-					System.out.println(rs.getString(1).split("-"));
-					System.out.println(Integer.valueOf(rs.getString(1).split("-")[1]));
-					dateOrigine = Integer.valueOf(rs.getString(1).split("-")[1]);
+					dateOrigine = rs.getString(2);
 				}
 				
-				int dateFin = Integer.valueOf(java.time.LocalDate.now().toString().split("-")[1]);
-
-				int duree = dateFin - dateOrigine;
+				pst2.executeUpdate();
 				
-//				System.out.println(duree);
-				createFacture(duree, input_matricule.getText().toString());
+				lbletat.setText("Retour enregistré");
 			} catch (SQLException e) {
-				lbletat.setText("Retour erreur (suppretion)");
+				lbletat.setText("Retour erreur (suppression)");
 			}
 		} catch(Exception e) {
 			lbletat.setText("Retour erreur (insertion)");
+		}
+		
+		try {
+			String sql3 = "Select assurance FROM loue where idUtilisateur = ? and matricule = ?";
+			PreparedStatement pst3 = conn.prepareStatement(sql3);
+			pst3.setInt(1, Integer.valueOf(input_idUtilisateur.getText().toString()));
+			pst3.setString(2, input_matricule.getText().toString());
+			
+			ResultSet rs = pst3.executeQuery();
+			
+			int assurance = 0;
+			int etatOrigine = 5;
+			int etatFin = ((int)(Math.random() * ( 5 - 1 )));
+			int frais_remise = ((etatOrigine - etatFin )* 20);
+			
+	        while (rs.next()) {
+	        	if (rs.getInt(1) == 1) {
+	        		assurance = 0;
+	    		} else {
+	    			assurance = frais_remise;
+	    		}
+	        }
+	        
+			createFacture(dateOrigine, input_matricule.getText().toString(), assurance, frais_remise);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		try {
@@ -442,6 +452,7 @@ public class ClientController extends MainController implements Initializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	@FXML public void souscrit(ActionEvent event) {
