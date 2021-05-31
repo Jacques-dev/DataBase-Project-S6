@@ -250,7 +250,7 @@ public class ClientController extends MainController implements Initializable {
 	 
 	 
 	private void createDevis(int duree) throws IOException, SQLException { 
-		String sql = "Select * from souscrire where idUtilisateur = ?"; 
+		String sql = "Select * from souscrire where idUtilisateur = ?";
 		PreparedStatement pst = conn.prepareStatement(sql); 
 		pst.setInt(1, Integer.valueOf(input_idUtilisateur.getText().toString())); 
 		ResultSet rs = pst.executeQuery(); 
@@ -306,10 +306,15 @@ public class ClientController extends MainController implements Initializable {
 		 
 		int duree = 0; 
 		String dateFinLocation = input_date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); 
-		int dfl = Integer.valueOf(dateFinLocation.split("-")[1]); 
-		int dol = Integer.valueOf(dateOrigineLocation.split("-")[1]); 
-		 
-		duree = dfl - dol; 
+		
+		int dateFinLocationMois = Integer.valueOf(dateFinLocation.split("-")[1]);
+		int dateOrigineLocationMois = Integer.valueOf(dateOrigineLocation.split("-")[1]);
+		int dateFinLocationJours = Integer.valueOf(dateFinLocation.split("-")[2]); 
+		int dateOrigineLocationJours = Integer.valueOf(dateOrigineLocation.split("-")[2]); 
+		
+		
+		duree = 30 * (dateFinLocationMois - dateOrigineLocationMois) + Math.abs(dateFinLocationJours - dateOrigineLocationJours);
+		System.out.println(duree);
 		 
 		pst.setInt(1, duree); 
 		pst.setFloat(2, consomationCarburant); 

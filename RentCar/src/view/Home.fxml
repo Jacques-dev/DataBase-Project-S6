@@ -5,6 +5,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
@@ -32,6 +33,13 @@
       </SplitPane>
    </center>
    <bottom>
-      <Label text="Yanis Rouabah - Merouane Souadji - Jacques Tellier" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="78.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="30.0" layoutY="14.0" text="Client Gold : " />
+            <Label layoutX="30.0" layoutY="31.0" text="Nombre de locations : " />
+            <Label fx:id="clientGoldName" layoutX="113.0" layoutY="14.0" prefHeight="17.0" prefWidth="181.0" />
+            <Label fx:id="clientGoldNbLocation" layoutX="168.0" layoutY="31.0" prefHeight="17.0" prefWidth="36.0" />
+         </children>
+      </Pane>
    </bottom>
 </BorderPane>
