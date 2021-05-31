@@ -19,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -58,15 +59,16 @@ public class GerantController extends MainController implements Initializable {
 //  ------------------------------------------------------------------------------------------------------------------------------- //
 	//  -----------------------------------------------------GESTION Finance ------------------------------------------------- //
 	
-	//@FXML private DatePicker input_dateA;
-	//@FXML private DatePicker input_dateB;
+	@FXML private DatePicker input_date_un;
+	@FXML private DatePicker input_date_deux;
+	@FXML private Label recette; 
+	
 	
 	public void print_chiffre_daffaire(ActionEvent event) throws SQLException{
 		
-		//String dateA = input_dateA.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
-		//String dateB = input_dateB.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
-		String dateA = "2010-04-02";
-		String dateB = "2022-05-30";
+		String dateA = input_date_un.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
+		String dateB = input_date_deux.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
+
 		float tarif = 0;
 		float duree_effective; 
 		float frais_remise = 0;
@@ -75,7 +77,6 @@ public class GerantController extends MainController implements Initializable {
 		
 		String sql_r ="SELECT idUtilisateur, matricule, tarif, caution, dureeEffective, frais_remise, tauxReduction, datePriseDeReservation FROM vehicule NATURAL JOIN categorievehicule NATURAL JOIN loue NATURAL JOIN facture NATURAL JOIN souscrire WHERE datePriseDeReservation BETWEEN ? AND ? ";
 		
-		 
 		PreparedStatement stat = conn.prepareStatement(sql_r);
 		
 		stat.setDate(1, Date.valueOf(dateA));
@@ -92,6 +93,8 @@ public class GerantController extends MainController implements Initializable {
 	    	System.out.println(tarif_total);
 	    	
 	    }
+	    recette.setText(String.valueOf(tarif_total));
+	    
 	}	
 	
 //-------------------------------------------------------------------------------------------------------------------------------//

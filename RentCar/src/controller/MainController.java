@@ -62,10 +62,6 @@ public class MainController extends Main implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
-	
-	
-	
 	
 	
 	public void goHome(ActionEvent event) throws IOException {
