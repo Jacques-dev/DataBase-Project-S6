@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -27,6 +28,8 @@ import model.Vehicule;
 
 public class GerantController extends MainController implements Initializable {
 
+	@FXML private Label lbletat;
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		try {
@@ -51,36 +54,41 @@ public class GerantController extends MainController implements Initializable {
 	@FXML TextField input_email = new TextField();
 	@FXML TextField input_telephone = new TextField();
 	@FXML TextField input_adresse = new TextField();
-	public void addButtonClicked(ActionEvent event) throws SQLException {
-			
-		 String sql = "INSERT INTO utilisateur (nom,prenom,email,telephone,idAdresse) Values (?,?,?,?,?)";
-		 
-		 PreparedStatement stat = conn.prepareStatement(sql);
-	     
-		 
-		 stat.setString(1, input_nom.getText().toString());
-		 stat.setString(2, input_prenom.getText().toString());
-		 stat.setString(3, input_email.getText().toString());
-		 stat.setString(4, input_telephone.getText().toString());
-		 stat.setString(5, input_adresse.getText().toString());
-	     
-	     stat.executeUpdate();
-	         
-	     String sql_id ="SELECT idUtilisateur FROM utilisateur WHERE email = ?";
-	     
-	     PreparedStatement stat_id = conn.prepareStatement(sql_id);
-	     stat_id.setString(1, input_email.getText().toString());
-	     ResultSet rs = stat_id.executeQuery();
-	     
-	     String sql_client = "INSERT INTO client (idUtilisateur) Values (?)";
+	public void addButtonClicked(ActionEvent event){
+		String sql = "INSERT INTO utilisateur (nom,prenom,email,telephone,idAdresse) Values (?,?,?,?,?)";
+		
+		try {
+			PreparedStatement stat = conn.prepareStatement(sql);
+		     
+			 
+			stat.setString(1, input_nom.getText().toString());
+			stat.setString(2, input_prenom.getText().toString());
+			stat.setString(3, input_email.getText().toString());
+			stat.setString(4, input_telephone.getText().toString());
+			stat.setString(5, input_adresse.getText().toString());
+		     
+		    stat.executeUpdate();
+		         
+		    String sql_id ="SELECT idUtilisateur FROM utilisateur WHERE email = ?";
+		     
+		    PreparedStatement stat_id = conn.prepareStatement(sql_id);
+		    stat_id.setString(1, input_email.getText().toString());
+		    ResultSet rs = stat_id.executeQuery();
+		     
+		    String sql_client = "INSERT INTO client (idUtilisateur) Values (?)";
+	
+		    PreparedStatement stat_a = conn.prepareStatement(sql_client);
+	
+		    if (rs.next()) {
+		    	stat_a.setInt(1, rs.getInt(1));
+		    }
 
-	     PreparedStatement stat_a = conn.prepareStatement(sql_client);
-
-	     if (rs.next()) {
-	    	 stat_a.setInt(1, rs.getInt(1));
-	     }
-
-		 stat_a.executeUpdate();
+	    	stat_a.executeUpdate();
+	    	lbletat.setText("Utilisateur enregistré");
+		} catch(Exception e) {
+			lbletat.setText("Utilisateur erreur");
+		}
+		
         
         input_nom.clear();
         input_prenom.clear();
@@ -97,33 +105,38 @@ public class GerantController extends MainController implements Initializable {
 	@FXML TextField input_v_climatisation = new TextField();
 	@FXML TextField input_v_BoiteDeVitesse = new TextField();
 	@FXML TextField input_v_type = new TextField();
-	public void addButtonClicked_vehicule(ActionEvent event) throws SQLException {
+	public void addButtonClicked_vehicule(ActionEvent event) {
 		
-		 vehicule_table.getItems().clear();
+		vehicule_table.getItems().clear();
 		
-		 String sql = "INSERT INTO vehicule (matricule, marque, modele, kilometrage, climatisation, typeBoiteDeVitesse, type) Values (?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO vehicule (matricule, marque, modele, kilometrage, climatisation, typeBoiteDeVitesse, type) Values (?,?,?,?,?,?,?)";
 		 
-		 PreparedStatement stat = conn.prepareStatement(sql);
-	     
-		 stat.setString(1, input_v_matricule.getText().toString());
-		 stat.setString(2, input_v_marque.getText().toString());
-		 stat.setString(3, input_v_modele.getText().toString());
-		 stat.setInt(4, Integer.valueOf(input_v_kilometrage.getText().toString()));
-		 stat.setBoolean(5, Boolean.valueOf(input_v_climatisation.getText().toString()));
-		 stat.setString(6, input_v_BoiteDeVitesse.getText().toString());
-		 stat.setString(7, input_v_type.getText().toString());
- 
-	     stat.executeUpdate();     
-       
-	     input_v_matricule.clear();
-	     input_v_marque.clear();
-	     input_v_modele.clear();
-	     input_v_kilometrage.clear();
-	     input_v_climatisation.clear();
-	     input_v_BoiteDeVitesse.clear();
-	     input_v_type.clear();	
-	     
-	     print_vehicules(event);
+		try {
+			PreparedStatement stat = conn.prepareStatement(sql);
+		     
+			stat.setString(1, input_v_matricule.getText().toString());
+			stat.setString(2, input_v_marque.getText().toString());
+			stat.setString(3, input_v_modele.getText().toString());
+			stat.setInt(4, Integer.valueOf(input_v_kilometrage.getText().toString()));
+			stat.setBoolean(5, Boolean.valueOf(input_v_climatisation.getText().toString()));
+			stat.setString(6, input_v_BoiteDeVitesse.getText().toString());
+			stat.setString(7, input_v_type.getText().toString());
+	 
+		    stat.executeUpdate();
+			
+		    input_v_matricule.clear();
+		    input_v_marque.clear();
+		    input_v_modele.clear();
+		    input_v_kilometrage.clear();
+		    input_v_climatisation.clear();
+		    input_v_BoiteDeVitesse.clear();
+		    input_v_type.clear();	
+		     
+		    print_vehicules(event);
+		    lbletat.setText("Vehicule enregistré");
+		} catch(Exception e) {
+			lbletat.setText("Vehicule erreur");
+		}
 	}
 	
 	public void getSelected_v(MouseEvent event) throws IOException{
@@ -152,7 +165,7 @@ public class GerantController extends MainController implements Initializable {
 	
 	
 	@FXML ObservableList<Utilisateur> clientselected, allclient; 
-	public void deleteButtonClicked(ActionEvent event) throws SQLException, IOException {
+	public void deleteButtonClicked(ActionEvent event) throws IOException {
 		
 		allclient = client_table.getItems();
 		clientselected = client_table.getSelectionModel().getSelectedItems();
@@ -160,36 +173,47 @@ public class GerantController extends MainController implements Initializable {
 		String sql = ("DELETE FROM utilisateur where idUtilisateur = ? ");
 		String sql_client = ("DELETE FROM client where idUtilisateur = ? ");
 		
-		PreparedStatement pst = conn.prepareStatement(sql);
-		PreparedStatement pst_client = conn.prepareStatement(sql_client);
-		
-		pst.setInt(1, clientselected.get(0).getId());
-		pst_client.setInt(1, clientselected.get(0).getId());
-		//System.out.println(pst);
-		pst.executeUpdate();
-        pst_client.executeUpdate();
-        //go_to_gestion_client(event);
-        client_table.getItems().clear();
-        print_clients(event);
+		try {
+			PreparedStatement pst = conn.prepareStatement(sql);
+			PreparedStatement pst_client = conn.prepareStatement(sql_client);
+			
+			pst.setInt(1, clientselected.get(0).getId());
+			pst_client.setInt(1, clientselected.get(0).getId());
+			//System.out.println(pst);
+			pst.executeUpdate();
+	        pst_client.executeUpdate();
+	        //go_to_gestion_client(event);
+	        client_table.getItems().clear();
+	        print_clients(event);
+	        
+	        lbletat.setText("Client supprimé");
+		} catch(Exception e) {
+			lbletat.setText("Client erreur");
+		}
 	}
 	
 	@FXML ObservableList<Vehicule> vehiculeselected, allvehicule; 
-	public void deleteButtonClicked_v(ActionEvent event) throws SQLException, IOException {
+	public void deleteButtonClicked_v(ActionEvent event) throws IOException {
 		
 		allvehicule = vehicule_table.getItems();
 		vehiculeselected = vehicule_table.getSelectionModel().getSelectedItems();
 		//System.out.println(vehiculeselected.get(0).getMatricule());
 		String sql = ("DELETE FROM vehicule where matricule = ? ");
 		
-		PreparedStatement pst = conn.prepareStatement(sql);
-		
-		pst.setString(1, vehiculeselected.get(0).getMatricule());
-		//System.out.println(pst);
-		
-        pst.executeUpdate();
-//        go_to_gestion_client(event);
-        vehicule_table.getItems().clear();
-        print_vehicules(event);
+		try {
+			PreparedStatement pst = conn.prepareStatement(sql);
+			
+			pst.setString(1, vehiculeselected.get(0).getMatricule());
+			//System.out.println(pst);
+			
+	        pst.executeUpdate();
+	//        go_to_gestion_client(event);
+	        vehicule_table.getItems().clear();
+	        print_vehicules(event);
+	        lbletat.setText("Vehicule supprimé");
+		} catch(Exception e) {
+			lbletat.setText("Vehicule erreur");
+		}
 	}
 	
 	
@@ -271,46 +295,57 @@ public class GerantController extends MainController implements Initializable {
 		client_table.setItems(clients);
 	}
 	
-	public void updateClientInfo(ActionEvent event) throws SQLException{
+	public void updateClientInfo(ActionEvent event){
 		
 		//System.out.println("Balise A");
 		int index = client_table.getSelectionModel().getSelectedIndex();
 		String idUtilisateur_concerne = idUtilisateur.getCellData(index).toString();
 		String sql = "UPDATE utilisateur SET nom = ? ,prenom = ? ,email = ?, telephone = ?, idAdresse = ? WHERE idUtilisateur = ?";
-		 
-		PreparedStatement stat = conn.prepareStatement(sql);
-	     
-		//System.out.println("Balise B");
-		 
-		stat.setString(1, input_nom.getText().toString());
-		stat.setString(2, input_prenom.getText().toString());
-		stat.setString(3, input_email.getText().toString());
-		stat.setString(4, input_telephone.getText().toString());
-		stat.setString(5, input_adresse.getText().toString());
-		stat.setInt(6, Integer.valueOf(idUtilisateur_concerne));
-	    stat.executeUpdate();
+		
+		try {
+			PreparedStatement stat = conn.prepareStatement(sql);
+		     
+			//System.out.println("Balise B");
+			 
+			stat.setString(1, input_nom.getText().toString());
+			stat.setString(2, input_prenom.getText().toString());
+			stat.setString(3, input_email.getText().toString());
+			stat.setString(4, input_telephone.getText().toString());
+			stat.setString(5, input_adresse.getText().toString());
+			stat.setInt(6, Integer.valueOf(idUtilisateur_concerne));
+		    stat.executeUpdate();
+		    lbletat.setText("Utilisateur modifié");
+		} catch(Exception e) {
+			lbletat.setText("Utilisateur erreur");
+		}
 	    
 	}
 	
-	public void updateVehiculeInfo(ActionEvent event) throws SQLException{
+	public void updateVehiculeInfo(ActionEvent event){
 		//System.out.println("Balise A");
 		int index = vehicule_table.getSelectionModel().getSelectedIndex();
 		String matricule_concerne = matricule.getCellData(index).toString();
 		String sql = "UPDATE vehicule SET matricule = ? ,marque = ? ,modele = ?, kilometrage = ?, climatisation = ?, typeBoiteDeVitesse = ?, type = ?  WHERE matricule = ?";
 		 
-		PreparedStatement stat = conn.prepareStatement(sql);
-		 
-		//System.out.println("Balise B");
-		 
-		stat.setString(1, input_v_matricule.getText().toString());
-		stat.setString(2, input_v_marque.getText().toString());
-		stat.setString(3, input_v_modele.getText().toString());
-		stat.setInt(4, Integer.valueOf(input_v_kilometrage.getText().toString()));
-		stat.setBoolean(5, Boolean.valueOf(input_v_climatisation.getText().toString()));
-		stat.setString(6, input_v_BoiteDeVitesse.getText().toString());
-		stat.setString(7, input_v_type.getText().toString());
-		stat.setString(8, String.valueOf(matricule_concerne));
-		stat.executeUpdate();
+		try {
+			PreparedStatement stat = conn.prepareStatement(sql);
+			 
+			//System.out.println("Balise B");
+			 
+			stat.setString(1, input_v_matricule.getText().toString());
+			stat.setString(2, input_v_marque.getText().toString());
+			stat.setString(3, input_v_modele.getText().toString());
+			stat.setInt(4, Integer.valueOf(input_v_kilometrage.getText().toString()));
+			stat.setBoolean(5, Boolean.valueOf(input_v_climatisation.getText().toString()));
+			stat.setString(6, input_v_BoiteDeVitesse.getText().toString());
+			stat.setString(7, input_v_type.getText().toString());
+			stat.setString(8, String.valueOf(matricule_concerne));
+			stat.executeUpdate();
+			
+			lbletat.setText("Vehicule modifié");
+		} catch(Exception e) {
+			lbletat.setText("Vehicule erreur");
+		}
 		
 		try {
 			vehicule_table.getItems().clear();

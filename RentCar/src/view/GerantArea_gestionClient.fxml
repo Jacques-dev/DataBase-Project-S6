@@ -78,5 +78,6 @@
       <Button layoutX="14.0" layoutY="57.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="113.0" text="Gestion Client" />
       <Button layoutX="149.0" layoutY="57.0" mnemonicParsing="false" onAction="#go_to_gestion_vehicule" prefHeight="27.0" prefWidth="113.0" text="Gestion Véhicule" />
       <Button layoutX="280.0" layoutY="57.0" mnemonicParsing="false" onAction="#go_to_gestion_finance" prefHeight="27.0" prefWidth="113.0" text="Gestion Finance" />
+      <Label fx:id="lbletat" layoutX="711.0" layoutY="24.0" prefHeight="17.0" prefWidth="198.0" textFill="RED" />
    </children>
 </Pane>
