@@ -30,6 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Devis;
+import model.Facture;
 import model.ProgramFidelite;
 import model.Utilisateur;
 import model.Vehicule;
@@ -62,19 +63,26 @@ public class ClientController extends MainController implements Initializable {
 				lbl_idUtilisateur.setText(String.valueOf(devis.getIdUtilisateur()));
 				lbl_matricule.setText(String.valueOf(devis.getMatricule()));
 				break;
+			case "ClientFacture":
+				lbl_dureeEffective.setText(String.valueOf(facture.getDureeEffective()));
+				lbl_consomationCarburant.setText(String.valueOf(facture.getConsomationCarburant()));
+				lbl_etatVehicule.setText(String.valueOf(facture.getEtatVehicule()));
+				lbl_idAgence.setText(String.valueOf(facture.getIdAgence()));
+				lbl_idUtilisateur.setText(String.valueOf(facture.getIdUtilisateur()));
+				lbl_fraisRemise.setText(String.valueOf(facture.getFrais_remise()));
+				break;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	
 	@FXML private TableView<ProgramFidelite> programFideliteTable;
 	@FXML private TableColumn<ProgramFidelite, Integer> idProgrammeFidelite;
 	@FXML private TableColumn<ProgramFidelite, Integer> duree;
 	@FXML private TableColumn<ProgramFidelite, String> description;
 	@FXML private TableColumn<ProgramFidelite, Float> prix;
-	
 	
 	public ObservableList<ProgramFidelite> programs = FXCollections.observableArrayList();
 	
@@ -200,7 +208,6 @@ public class ClientController extends MainController implements Initializable {
 		clientTable.setItems(clients);
 	}
 
-	
 	private static Devis devis;
 	@FXML private Label lbl_MontantReduction;
 	@FXML private Label lbl_dureePrevueDeLocation;
@@ -238,35 +245,7 @@ public class ClientController extends MainController implements Initializable {
 	
 	@FXML private Label lbletat;
 	
-	@FXML public void loue(ActionEvent event) {
-		
-		String sql = ("INSERT INTO loue (matricule, idUtilisateur, assurance, duree, datePriseDeReservation) VALUES (?, ?, ?, ?, ?)");
-		
-		try {
-			PreparedStatement pst = conn.prepareStatement(sql);
-			
-			pst.setString(1, input_matricule.getText().toString());
-			pst.setInt(2, Integer.valueOf(input_idUtilisateur.getText().toString()));
-			pst.setBoolean(3, input_assurance.isSelected());
-			pst.setInt(4, Integer.valueOf(input_duree.getText().toString()));
-			pst.setString(5, java.time.LocalDate.now().toString());
-			
-	        pst.executeUpdate();
-	        
-			lbletat.setText("Location enregistré");
-			
-	        createDevis(Integer.valueOf(input_duree.getText().toString()));
-		} catch(Exception e) {
-			lbletat.setText("Location erreur");
-		}
-		
-		try {
-			vehiculeTable.getItems().clear();
-			printVehicules();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+	
 	
 	private void createDevis(int duree) throws IOException, SQLException {
 		String sql = "Select * from souscrire where idUtilisateur = ?";
@@ -299,6 +278,84 @@ public class ClientController extends MainController implements Initializable {
 		printDevis();
 	}
 	
+	private static Facture facture;
+	@FXML private Label lbl_dureeEffective;
+	@FXML private Label lbl_consomationCarburant;
+	@FXML private Label lbl_etatVehicule;
+	@FXML private Label lbl_fraisRemise;
+	private void printFacture() throws IOException {
+		actualscene = "ClientFacture";
+		Parent root = FXMLLoader.load(getClass().getResource("/view/Facture.fxml"));
+		Stage newWindow = new Stage();
+		Scene scene = new Scene(root);
+		newWindow.setTitle("Facture");
+		newWindow.setScene(scene);
+		newWindow.show();
+	}
+	
+	private void createFacture(int duree, String mat) throws IOException, SQLException {
+		String sql = "Select etatOrigine from loue where idUtilisateur = ? and matricule = ?";
+		PreparedStatement pst = conn.prepareStatement(sql);
+		pst.setInt(1, Integer.valueOf(input_idUtilisateur.getText().toString()));
+		pst.setString(2, mat);
+		ResultSet rs = pst.executeQuery();
+		System.out.println(rs);
+		int etatOrigine = 0;
+		if (rs.next()) {
+			etatOrigine = rs.getInt(1);
+		}
+		System.out.println(etatOrigine);
+		sql = "INSERT INTO facture (dureeEffective, consomationCarburant, etatVehicule, idAgence, idUtilisateur, frais_remise) VALUES (?, ?, ?, ?, ?, ?)";
+		pst = conn.prepareStatement(sql);
+		
+		int idUtilisateur = Integer.valueOf(input_idUtilisateur.getText().toString());
+		System.out.println(idUtilisateur);
+		pst.setInt(1, duree);
+		pst.setInt(2, (int)(Math.random() * ( 30 - 2 ))*1000);
+		pst.setInt(3, etatOrigine);
+		pst.setInt(4, 1);
+		pst.setInt(5, idUtilisateur);
+		pst.setInt(6, (etatOrigine - (int)(Math.random() * ( 5 - 1 )) * 10));
+		System.out.println(pst);
+		pst.executeUpdate();
+		
+		float consomationCarburant = (float)(Math.random() * ( 30 - 2 ))*1000;
+		int frais_remise = (etatOrigine - (int)(Math.random() * ( 5 - 1 )) * 10);
+		
+		facture = new Facture(duree, consomationCarburant, etatOrigine, idUtilisateur, 1, frais_remise);
+		System.out.println(facture);
+		printFacture();
+	}
+	
+	@FXML public void loue(ActionEvent event) {
+		
+		String sql = ("INSERT INTO loue (matricule, idUtilisateur, assurance, duree, datePriseDeReservation) VALUES (?, ?, ?, ?, ?)");
+		
+		try {
+			PreparedStatement pst = conn.prepareStatement(sql);
+			
+			pst.setString(1, input_matricule.getText().toString());
+			pst.setInt(2, Integer.valueOf(input_idUtilisateur.getText().toString()));
+			pst.setBoolean(3, input_assurance.isSelected());
+			pst.setInt(4, Integer.valueOf(input_duree.getText().toString()));
+			pst.setString(5, java.time.LocalDate.now().toString());
+			
+	        pst.executeUpdate();
+	        
+			lbletat.setText("Location enregistré");
+			
+	        createDevis(Integer.valueOf(input_duree.getText().toString()));
+		} catch(Exception e) {
+			lbletat.setText("Location erreur");
+		}
+		
+		try {
+			vehiculeTable.getItems().clear();
+			printVehicules();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@FXML public void reserve(ActionEvent event) {
 		vehiculeTable.getItems().clear();
@@ -350,6 +407,29 @@ public class ClientController extends MainController implements Initializable {
 				pst2.executeUpdate();
 				
 				lbletat.setText("Retour enregistré");
+				
+				
+				
+				sql = "Select datePriseDeReservation from loue where idUtilisateur = ? and matricule = ?";
+				pst = conn.prepareStatement(sql);
+				pst.setInt(1, Integer.valueOf(input_idUtilisateur.getText().toString()));
+				pst.setString(2, input_matricule.getText().toString());
+				ResultSet rs = pst.executeQuery();
+
+				int dateOrigine = 0;
+				if (rs.next()) {
+					System.out.println(rs.getString(1));
+					System.out.println(rs.getString(1).split("-"));
+					System.out.println(Integer.valueOf(rs.getString(1).split("-")[1]));
+					dateOrigine = Integer.valueOf(rs.getString(1).split("-")[1]);
+				}
+				
+				int dateFin = Integer.valueOf(java.time.LocalDate.now().toString().split("-")[1]);
+
+				int duree = dateFin - dateOrigine;
+				
+//				System.out.println(duree);
+				createFacture(duree, input_matricule.getText().toString());
 			} catch (SQLException e) {
 				lbletat.setText("Retour erreur (suppretion)");
 			}
@@ -416,7 +496,6 @@ public class ClientController extends MainController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
 	
 	public void getSelected_v_a_louer(MouseEvent event) throws IOException{
 		int index = vehiculeTable.getSelectionModel().getSelectedIndex();

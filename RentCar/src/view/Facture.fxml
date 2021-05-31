@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientController">
+   <children>
+      <Label layoutX="77.0" layoutY="46.0" prefHeight="30.0" prefWidth="90.0" text="FACTURE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="77.0" layoutY="146.0" text="Durée Effective : " />
+      <Label fx:id="lbl_dureeEffective" layoutX="254.0" layoutY="146.0" prefHeight="17.0" prefWidth="101.0" />
+      <Label layoutX="77.0" layoutY="185.0" text="Consomation de Carburant : " />
+      <Label fx:id="lbl_consomationCarburant" layoutX="254.0" layoutY="185.0" prefHeight="17.0" prefWidth="101.0" />
+      <Label layoutX="77.0" layoutY="224.0" text="État du véhicule : " />
+      <Label fx:id="lbl_etatVehicule" layoutX="254.0" layoutY="224.0" prefHeight="17.0" prefWidth="101.0" />
+      <Label layoutX="77.0" layoutY="263.0" text="idAgence : " />
+      <Label fx:id="lbl_idAgence" layoutX="254.0" layoutY="263.0" prefHeight="17.0" prefWidth="101.0" />
+      <Label layoutX="77.0" layoutY="303.0" text="idUtilisateur : " />
+      <Label fx:id="lbl_idUtilisateur" layoutX="254.0" layoutY="303.0" prefHeight="17.0" prefWidth="101.0" />
+      <Label layoutX="437.0" layoutY="179.0" prefHeight="30.0" prefWidth="101.0" text="RENTCAR">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="77.0" layoutY="339.0" text="Frais de remise :  : " />
+      <Label fx:id="lbl_fraisRemise" layoutX="254.0" layoutY="339.0" prefHeight="17.0" prefWidth="101.0" />
+   </children>
+</Pane>

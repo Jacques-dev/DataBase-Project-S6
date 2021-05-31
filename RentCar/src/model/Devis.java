@@ -18,7 +18,7 @@ public class Devis {
 		this.matricule = matricule;
 	}
 	
-	public Devis( float montantReduction, int durreePrevueLocation, int idAgence, int idUtilisateur, String matricule) {
+	public Devis(float montantReduction, int durreePrevueLocation, int idAgence, int idUtilisateur, String matricule) {
 		this.montantReduction = montantReduction;
 		this.durreePrevueLocation = durreePrevueLocation;
 		this.idAgence = idAgence;
