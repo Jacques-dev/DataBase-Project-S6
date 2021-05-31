@@ -29,7 +29,7 @@ public class Main extends Application {
 	
 	public static Connection getConnection() throws Exception {
 		try {
-			String driver = "com.mysql.jdbc.Driver";
+			String driver = "com.mysql.cj.jdbc.Driver";
 			String url = "jdbc:MYSQL://localhost/databaseprojects6";
 			String username = "root";
 			String password = "";

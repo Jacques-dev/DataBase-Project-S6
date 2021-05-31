@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="749.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChauffeurController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="749.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.ChauffeurController">
    <children>
       <Button layoutX="987.0" layoutY="1.0" mnemonicParsing="false" onAction="#goHome" prefHeight="58.0" prefWidth="98.0" text="deconnexion" />
       <Label layoutX="22.0" layoutY="21.0" text="Chauffeur">
@@ -17,7 +17,7 @@
          </font></Label>
       <Label layoutX="323.0" layoutY="128.0" text="Liste des véhicules">
          <font>
-            <Font size="15.0" />
+            <Font size="15.0"/>
          </font>
       </Label>
       <Label layoutX="421.0" layoutY="50.0" text="Gestion des véhicules">

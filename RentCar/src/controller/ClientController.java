@@ -387,9 +387,9 @@ public class ClientController extends MainController implements Initializable {
 			 
 			pst.executeUpdate(); 
  
-			lbletat.setText("R�servation enregistr�"); 
+			lbletat.setText("Réservation enregistré"); 
 		} catch(Exception e) { 
-			lbletat.setText("R�servation erreur"); 
+			lbletat.setText("Réservation erreur"); 
 		} 
 		 
 		try { 

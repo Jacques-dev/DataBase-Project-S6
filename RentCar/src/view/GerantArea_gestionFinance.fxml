@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="input_dateB" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GerantController">
+<Pane fx:id="input_dateB" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.GerantController">
    <children>
       <Button layoutX="906.0" mnemonicParsing="false" onAction="#goHome" prefHeight="66.0" prefWidth="111.0" text="Deconnexion" />
       <Label layoutX="445.0" layoutY="21.0" prefHeight="34.0" prefWidth="147.0" text="Gestion finance">

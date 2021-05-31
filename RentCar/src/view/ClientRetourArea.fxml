@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="646.0" prefWidth="1042.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientController">
+<Pane prefHeight="646.0" prefWidth="1042.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.ClientController">
    <children>
       <Label layoutX="908.0" layoutY="18.0" text="RENTCAR">
          <font>
