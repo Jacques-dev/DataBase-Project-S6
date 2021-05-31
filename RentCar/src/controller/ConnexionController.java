@@ -1,12 +1,15 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,11 +18,17 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ConnexionController extends MainController {
+public class ConnexionController extends MainController implements Initializable {
 	
 	@FXML private TextField identifiant;
 	@FXML private PasswordField mot_de_passe;
 	@FXML private Label lbletat;
+	
+	@Override 
+	public void initialize(URL url, ResourceBundle rb) { 
+	
+	}
+	
 	
 	@FXML
 	public void login(ActionEvent event) {

@@ -16,7 +16,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import model.ProgramFidelite;
 
 public class MainController extends Main implements Initializable {
 	
