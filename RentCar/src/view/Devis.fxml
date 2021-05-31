@@ -12,18 +12,16 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="77.0" layoutY="108.0" text="idDevis : " />
-      <Label fx:id="lbl_idDevis" layoutX="254.0" layoutY="108.0" text="Label" />
       <Label layoutX="77.0" layoutY="146.0" text="Montant Reduction : " />
-      <Label fx:id="lbl_MontantReduction" layoutX="254.0" layoutY="146.0" text="Label" />
+      <Label fx:id="lbl_MontantReduction" layoutX="254.0" layoutY="146.0" prefHeight="17.0" prefWidth="101.0" />
       <Label layoutX="77.0" layoutY="185.0" text="Durée Prévue de location : " />
-      <Label fx:id="lbl_dureePrevueDeLocation" layoutX="254.0" layoutY="185.0" text="Label" />
+      <Label fx:id="lbl_dureePrevueDeLocation" layoutX="254.0" layoutY="185.0" prefHeight="17.0" prefWidth="101.0" />
       <Label layoutX="77.0" layoutY="224.0" text="idAgence : " />
-      <Label fx:id="lbl_idAgence" layoutX="254.0" layoutY="224.0" text="Label" />
+      <Label fx:id="lbl_idAgence" layoutX="254.0" layoutY="224.0" prefHeight="17.0" prefWidth="101.0" />
       <Label layoutX="77.0" layoutY="263.0" text="idUtilisateur : " />
-      <Label fx:id="lbl_idUtilisateur" layoutX="254.0" layoutY="263.0" text="Label" />
+      <Label fx:id="lbl_idUtilisateur" layoutX="254.0" layoutY="263.0" prefHeight="17.0" prefWidth="101.0" />
       <Label layoutX="77.0" layoutY="303.0" text="Matricule : " />
-      <Label fx:id="lbl_matricule" layoutX="254.0" layoutY="303.0" text="Label" />
+      <Label fx:id="lbl_matricule" layoutX="254.0" layoutY="303.0" prefHeight="17.0" prefWidth="101.0" />
       <Label layoutX="437.0" layoutY="179.0" prefHeight="30.0" prefWidth="101.0" text="RENTCAR">
          <font>
             <Font size="20.0" />

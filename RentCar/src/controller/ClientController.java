@@ -28,14 +28,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Devis;
 import model.ProgramFidelite;
 import model.Utilisateur;
 import model.Vehicule;
 
 public class ClientController extends MainController implements Initializable {
 
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		input_etat.getItems().addAll(listOfEtat);
@@ -54,11 +55,19 @@ public class ClientController extends MainController implements Initializable {
 				printPrograms();
 				printClients();
 				break;
+			case "ClientDevis":
+				lbl_MontantReduction.setText(String.valueOf(devis.getMontantReduction()));
+				lbl_dureePrevueDeLocation.setText(String.valueOf(devis.getDurreePrevueLocation()));
+				lbl_idAgence.setText(String.valueOf(devis.getIdAgence()));
+				lbl_idUtilisateur.setText(String.valueOf(devis.getIdUtilisateur()));
+				lbl_matricule.setText(String.valueOf(devis.getMatricule()));
+				break;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	@FXML private TableView<ProgramFidelite> programFideliteTable;
 	@FXML private TableColumn<ProgramFidelite, Integer> idProgrammeFidelite;
@@ -191,7 +200,23 @@ public class ClientController extends MainController implements Initializable {
 		clientTable.setItems(clients);
 	}
 
-
+	
+	private static Devis devis;
+	@FXML private Label lbl_MontantReduction;
+	@FXML private Label lbl_dureePrevueDeLocation;
+	@FXML private Label lbl_idAgence;
+	@FXML private Label lbl_idUtilisateur;
+	@FXML private Label lbl_matricule;
+	private void printDevis() throws IOException {
+		actualscene = "ClientDevis";
+		Parent root = FXMLLoader.load(getClass().getResource("/view/Devis.fxml"));
+		Stage newWindow = new Stage();
+		Scene scene = new Scene(root);
+		newWindow.setTitle("Devis");
+		newWindow.setScene(scene);
+		newWindow.show();
+	}
+	
 	@FXML private TextField input_matricule;
 	@FXML private TextField input_idUtilisateur;
 	@FXML private CheckBox input_assurance;
@@ -225,21 +250,16 @@ public class ClientController extends MainController implements Initializable {
 			pst.setBoolean(3, input_assurance.isSelected());
 			pst.setInt(4, Integer.valueOf(input_duree.getText().toString()));
 			pst.setString(5, java.time.LocalDate.now().toString());
-
+			
 	        pst.executeUpdate();
 	        
 			lbletat.setText("Location enregistré");
 			
-			try {
-//				printDevis();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			
+	        createDevis(Integer.valueOf(input_duree.getText().toString()));
 		} catch(Exception e) {
 			lbletat.setText("Location erreur");
 		}
+		
 		try {
 			vehiculeTable.getItems().clear();
 			printVehicules();
@@ -248,6 +268,36 @@ public class ClientController extends MainController implements Initializable {
 		}
 	}
 	
+	private void createDevis(int duree) throws IOException, SQLException {
+		String sql = "Select * from souscrire where idUtilisateur = ?";
+		PreparedStatement pst = conn.prepareStatement(sql);
+		pst.setInt(1, Integer.valueOf(input_idUtilisateur.getText().toString()));
+		ResultSet rs = pst.executeQuery();
+
+		int montantReduction = 0;
+		if (rs.next()) {
+			montantReduction = 10;
+		}
+
+		sql = "INSERT INTO devis (montantReduction, dureePrevueLocation, idAgence, idUtilisateur, matricule) VALUES (?, ?, ?, ?, ?)";
+
+		pst = conn.prepareStatement(sql);
+		
+		int idUtilisateur = Integer.valueOf(input_idUtilisateur.getText().toString());
+		String matricule = input_matricule.getText().toString();
+
+		pst.setInt(1, montantReduction);
+		pst.setInt(2, duree);
+		pst.setInt(3, 1);
+		pst.setInt(4, idUtilisateur);
+		pst.setString(5, matricule);
+		
+		pst.executeUpdate();
+		
+		devis = new Devis(montantReduction, duree, 1, idUtilisateur, matricule);
+
+		printDevis();
+	}
 	
 
 	@FXML public void reserve(ActionEvent event) {
@@ -338,19 +388,7 @@ public class ClientController extends MainController implements Initializable {
 			lbletat.setText("Souscription erreur");
 		}
 	}
-			
-	
-	
-	
-	
-	private void printDevis() throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/view/Devis.fxml"));
-		Stage newWindow = new Stage();
-		Scene scene = new Scene(root);
-		newWindow.setTitle("Devis");
-		newWindow.setScene(scene);
-		newWindow.show();
-	}
+
 	
 	public void goToClientLocationArea(ActionEvent event) throws IOException, SQLException {
 		actualscene = "ClientLocationArea";
