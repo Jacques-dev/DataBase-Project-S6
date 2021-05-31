@@ -81,16 +81,13 @@ public class GerantController extends MainController implements Initializable {
 		
 		stat.setDate(1, Date.valueOf(dateA));
 		stat.setDate(2, Date.valueOf(dateB));
-		System.out.println(stat);
 	    ResultSet rs = stat.executeQuery();
 	    while(rs.next()) {
-	    	//System.out.println("tarf = " + rs.getInt(3) +" / caution = " + rs.getInt(4) +" / dureeEffective = "+ rs.getInt(5)+" / frais_remise = "+ rs.getInt(6) +" / taux de reduction = "+ rs.getFloat(7) );
 	    	tarif = Float.valueOf(rs.getInt(3));
 	    	duree_effective = Float.valueOf(rs.getInt(5));
 	    	frais_remise = Float.valueOf(rs.getInt(6));
 	    	taux_reduction = Float.valueOf(rs.getInt(7));
 	    	tarif_total += (tarif*duree_effective + frais_remise)*(1 - taux_reduction);
-	    	//System.out.println(tarif_total);
 	    }
 	    recette.setText(String.valueOf(tarif_total));
 	    
@@ -125,13 +122,8 @@ public class GerantController extends MainController implements Initializable {
 	public void print_factures() throws SQLException {
 		facture_table.getItems().clear();
         String sql = "Select * FROM facture";
-        //String nb_facture_sql ="SELECT count(*) from facture";
         PreparedStatement stat = conn.prepareStatement(sql);
-        //PreparedStatement stat_nb_facture = conn.prepareStatement(nb_facture_sql);
         ResultSet rs = stat.executeQuery();
-        //ResultSet nb_facture = stat_nb_facture.executeQuery();
-        
-        //System.out.println(nb_facture.getInt(0));
         
         while(rs.next()) {
         	factures.add(new Facture(rs.getInt(1), rs.getInt(2),rs.getFloat(3) , rs.getInt(4), rs.getInt(5),rs.getInt(6) , rs.getInt(7)));
@@ -314,7 +306,6 @@ public class GerantController extends MainController implements Initializable {
 		
 		allclient = client_table.getItems();
 		clientselected = client_table.getSelectionModel().getSelectedItems();
-		//System.out.println(clientselected.get(0).getId());
 		String sql = ("DELETE FROM utilisateur where idUtilisateur = ? ");
 		String sql_client = ("DELETE FROM client where idUtilisateur = ? ");
 		
@@ -323,10 +314,8 @@ public class GerantController extends MainController implements Initializable {
 		
 		pst.setInt(1, clientselected.get(0).getId());
 		pst_client.setInt(1, clientselected.get(0).getId());
-		//System.out.println(pst);
 		pst.executeUpdate();
         pst_client.executeUpdate();
-        //go_to_gestion_client(event);
         client_table.getItems().clear();
         print_clients(event);
 	}
@@ -515,16 +504,13 @@ public class GerantController extends MainController implements Initializable {
 		
 		allvehicule = vehicule_table.getItems();
 		vehiculeselected = vehicule_table.getSelectionModel().getSelectedItems();
-		//System.out.println(vehiculeselected.get(0).getMatricule());
 		String sql = ("DELETE FROM vehicule where matricule = ? ");
 		
 		PreparedStatement pst = conn.prepareStatement(sql);
 		
 		pst.setString(1, vehiculeselected.get(0).getMatricule());
-		//System.out.println(pst);
 		
         pst.executeUpdate();
-//        go_to_gestion_client(event);
         vehicule_table.getItems().clear();
         print_vehicules(event);
 	}

@@ -37,7 +37,6 @@ import model.Vehicule;
  
 public class ClientController extends MainController implements Initializable { 
  
-	 
 	@Override 
 	public void initialize(URL url, ResourceBundle rb) { 
 		input_etat.getItems().addAll(listOfEtat); 
@@ -76,7 +75,6 @@ public class ClientController extends MainController implements Initializable {
 			e.printStackTrace(); 
 		} 
 	} 
- 
 	 
 	@FXML private TableView<ProgramFidelite> programFideliteTable; 
 	@FXML private TableColumn<ProgramFidelite, Integer> idProgrammeFidelite; 
@@ -216,6 +214,7 @@ public class ClientController extends MainController implements Initializable {
 	@FXML private Label lbl_idAgence; 
 	@FXML private Label lbl_idUtilisateur; 
 	@FXML private Label lbl_matricule; 
+	
 	private void printDevis() throws IOException { 
 		actualscene = "ClientDevis"; 
 		Parent root = FXMLLoader.load(getClass().getResource("/view/Devis.fxml")); 
@@ -246,8 +245,6 @@ public class ClientController extends MainController implements Initializable {
 	} 
 	 
 	@FXML private Label lbletat; 
-	 
-	 
 	 
 	private void createDevis(int duree) throws IOException, SQLException { 
 		String sql = "Select * from souscrire where idUtilisateur = ?";
@@ -314,7 +311,6 @@ public class ClientController extends MainController implements Initializable {
 		
 		
 		duree = 30 * (dateFinLocationMois - dateOrigineLocationMois) + Math.abs(dateFinLocationJours - dateOrigineLocationJours);
-		System.out.println(duree);
 		 
 		pst.setInt(1, duree); 
 		pst.setFloat(2, consomationCarburant); 
@@ -347,23 +343,16 @@ public class ClientController extends MainController implements Initializable {
 	}
 	
 	@FXML public void loue_sur_le_devis(ActionEvent event) {
-		System.out.println("pouet");
 		 
 		String sql = ("INSERT INTO loue (matricule, idUtilisateur, assurance, duree, datePriseDeReservation) VALUES (?, ?, ?, ?, ?)"); 
 		 
 		try { 
 			PreparedStatement pst = conn.prepareStatement(sql); 
-			System.out.println("A");
 			pst.setString(1, lbl_matricule.getText().toString()); 
-			System.out.println("B");
 			pst.setInt(2, Integer.valueOf(lbl_idUtilisateur.getText().toString())); 
-			System.out.println("C");
 			pst.setInt(3, 0); 
-			System.out.println("D");
 			pst.setInt(4, Integer.valueOf(lbl_dureePrevueDeLocation.getText().toString())); 
-			System.out.println("E");
 			pst.setString(5, java.time.LocalDate.now().toString()); 
-			 System.out.println(pst);
 	        pst.executeUpdate(); 
 	        lbletat.setText("Location enregistré"); 
 	         
@@ -481,11 +470,8 @@ public class ClientController extends MainController implements Initializable {
 			PreparedStatement pst = conn.prepareStatement(sql); 
 			 
 			pst.setInt(1, Integer.valueOf(input_idUtilisateur.getText().toString())); 
-			System.out.println(pst); 
 			pst.setInt(2, Integer.valueOf(input_idProgramFidelite.getText().toString())); 
-			System.out.println(pst); 
 			pst.setString(3, java.time.LocalDate.now().toString()); 
-			System.out.println(pst); 
 			float i; 
 			if (input_tauxReduction.isSelected()) { 
 				i = 25; 
@@ -493,8 +479,6 @@ public class ClientController extends MainController implements Initializable {
 				i = 0; 
 			} 
 			pst.setFloat(4, i); 
-			System.out.println(pst); 
- 
 			pst.executeUpdate(); 
  
 			lbletat.setText("Souscription enregistr�"); 
@@ -502,8 +486,7 @@ public class ClientController extends MainController implements Initializable {
 			lbletat.setText("Souscription erreur"); 
 		} 
 	} 
- 
-	 
+  
 	public void goToClientLocationArea(ActionEvent event) throws IOException, SQLException { 
 		actualscene = "ClientLocationArea"; 
 		Parent root = FXMLLoader.load(getClass().getResource("/view/ClientLocationArea.fxml")); 
@@ -537,11 +520,13 @@ public class ClientController extends MainController implements Initializable {
 		input_matricule.setText(matricule.getCellData(index).toString()); 
 		 
 	} 
+	
 	public void getSelected_id_loueur(MouseEvent event) throws IOException{ 
 		int index = clientTable.getSelectionModel().getSelectedIndex(); 
 		//vehicule = vehiculeTable.getSelectionModel().getSelectedItems(); 
 		input_idUtilisateur.setText(idUtilisateur.getCellData(index).toString()); 
 	} 
+	
 	public void getSelected_id_program(MouseEvent event) throws IOException{ 
 		int index = programFideliteTable.getSelectionModel().getSelectedIndex(); 
 		//vehicule = vehiculeTable.getSelectionModel().getSelectedItems(); 
